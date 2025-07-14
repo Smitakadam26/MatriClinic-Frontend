@@ -1,0 +1,77 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Maria",
+      "password": "maria12345",
+      "gender": "F",
+      "dateOfBirth": "1996-01-01",
+      "email": "maria@gmail.com",
+      "mobileNumber": 1234567890,
+      "pincode": 123456,
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India"
+    },
+    {
+      "id": "4f1a",
+      "name": "SHWETA SUNIL KADAM",
+      "password": "987456",
+      "gender": "F",
+      "dateOfBirth": "10/28/2002",
+      "email": "shwetakadam5050@gmail.com",
+      "mobileNumber": "07263914518",
+      "pincode": "422003",
+      "city": "Nashik",
+      "state": "Maharashtra",
+      "country": "India"
+    }
+  ],
+  "coaches": [
+    {
+      "id": "1",
+      "name": "Rose",
+      "password": "rose12345",
+      "gender": "F",
+      "dateOfBirth": "1996-01-01",
+      "mobileNumber": 1234567890,
+      "speciality": "Confidence Issues"
+    },
+    {
+      "id": "a793",
+      "name": "SMITA SUNIL KADAM",
+      "password": "22123070",
+      "gender": "F",
+      "dateOfBirth": "09/26/2004",
+      "mobileNumber": "09022344850",
+      "speciality": "hardwork"
+    },
+    {
+      "id": "2dd3",
+      "name": "SHWETA  SUNIL KADAM",
+      "password": "123456",
+      "gender": "F",
+      "dateOfBirth": "09/26/2004",
+      "mobileNumber": "07263914518",
+      "speciality": "hardwork"
+    },
+    {
+      "id": "a2d9",
+      "name": "Atharav",
+      "password": "123456",
+      "gender": "M",
+      "dateOfBirth": "10/09/2008",
+      "mobileNumber": "000000000",
+      "speciality": "Creativity"
+    }
+  ],
+  "bookings": [
+    {
+      "appointmentDate": "2020-09-24",
+      "slot": "10 AM to 11 AM",
+      "userId": 1,
+      "coachId": 1,
+      "id": "1"
+    }
+  ]
+}
