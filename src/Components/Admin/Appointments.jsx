@@ -156,7 +156,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
         <div>
             <div className="container mt-2">
                 <div className='p-4'>
-                    <form>
+                    <form >
                         <div className="row g-3 mt-3"  >
                             <h4>Basic info:</h4>
                             <div className="col-md-3">

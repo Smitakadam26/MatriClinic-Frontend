@@ -53,9 +53,9 @@ export default function Appointments() {
     return (
         <div>
             <div className="min-h-screen bg-background p-4 border rounded-3 container mt-5 transperent" style={{ borderColor: "rgba(247, 246, 246, 0.94)"}}>
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto appointment">
 
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex flex-wrap justify-content-between">
                         <div>
                             <h5>Calendar & Appointments</h5>
                             <h5><span className="text-secondary" style={{ fontFamily: "Arial" }}>{currentdate.toDateString()}</span></h5>

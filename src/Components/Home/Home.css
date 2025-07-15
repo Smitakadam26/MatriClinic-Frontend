@@ -132,7 +132,7 @@
   justify-self: center;
   box-shadow: 10px 8px 24px hsla(170, 12%, 8%, .1);
   position: absolute;
-  bottom: -1.0rem;
+  bottom: -2.0rem;
   opacity: 0;
   pointer-events: none;
   transition: transform .4s, opacity .4s;
@@ -174,4 +174,47 @@
 }
 .transperent{
   background-color:rgba(247, 246, 246, 0.871);
+}
+.login{
+  width: 25%;
+}
+.signup{
+  width: 50%;
+}
+@media screen and (max-width: 600px) {
+  h3 span{
+    font-size: 6vh;
+  }
+  .profile h3 span{
+    font-size:3vh;
+  }
+  h1{
+    display: flex;
+  }
+  .login{
+    width:100%;
+    margin-left:20px;
+    margin-right:20px;
+  }
+  .signup{
+    width:100%;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top: 25vh;
+  }
+  .wallpaper{
+    display: none;
+  }
+  .appointment{
+    display: flex;
+  }
+  .card__button{
+    bottom: -4.3rem;
+  }
+  .card__button h4{
+    font-size: 15px;
+  }
+  .card__button h5{
+    font-size: 15px;
+  }
 }

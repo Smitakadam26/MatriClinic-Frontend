@@ -103,7 +103,7 @@ export default function PatientProfile() {
                 </div>
             </div>
             <div className="container">
-                <div className="row g-3 mx-auto mt-5 container">
+                <div className="row g-3 mx-auto mt-5 container profile">
                     <h3 className="col-md-6">Name : <span className=" text-secondary"> {Patient.name}</span></h3>
                     <h3 className="col-md-6">Email : <span className=" text-secondary"> {Patient.email}</span></h3>
                     <h3 className="col-md-6">Mobile Number : <span className=" text-secondary"> {Patient.mobileNumber}</span></h3>

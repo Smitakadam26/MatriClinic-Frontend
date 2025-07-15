@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./Components/Home/Home";
-import Doctorlogin from "./Components/Home/Doctorlogin";
 import Patientlogin from "./Components/Home/Patientlogin";
 import Admin from "./Components/Admin/Admin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -32,7 +31,6 @@ function ProtectedRoute({ children }) {
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-export const url = 'https://matriclinic-website-backend.onrender.com';
 root.render(
   <BrowserRouter>
     <Routes>
@@ -40,7 +38,6 @@ root.render(
         <Route index element={<Home />} />
         <Route path="Home" element={<Home />} />
         <Route path="Adminlogin" element={<Adminlogin />} />
-        <Route path="Doctorlogin" element={<Doctorlogin />} />
         <Route path="Patientlogin" element={<Patientlogin />} />
         <Route path="patients/resetpassword/:id/:token" element={<Forgetpassword/>}/>
         <Route path="/Admin/:id" element={<ProtectedRoute><Admin /></ProtectedRoute>}>

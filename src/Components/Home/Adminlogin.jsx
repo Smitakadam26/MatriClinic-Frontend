@@ -42,11 +42,14 @@ export default function Adminlogin() {
         }
     };
     return (
-            <div>
-                <h1 className="d-flex justify-content-between heading mx-5">
-                    <img src={logo} alt="logo" style={{ width: "40vh" }} />
+        <div>
+            <h1 className="heading mx-5">
+                <div className="d-flex flex-wrap justify-content-between">
+                    <div>
+                        <img src={logo} alt="logo" style={{ width: "40vh" }} />
+                    </div>
                     <div className="gap-1 mt-3">
-                       
+
                         <Button>
                             <Link to="/Patientlogin" className="text-secondary text-decoration-none m-2">
                                 Patient
@@ -60,52 +63,54 @@ export default function Adminlogin() {
                             <Outlet />
                         </Button>
                     </div>
-                </h1>
-                <div style={{
-                    backgroundImage: `url(${wallpaper})`,
-                    height: "84vh",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    fontFamily:"Arial"
-                }}  className="d-flex justify-content-center align-items-center">
-                    <div className="bg-white w-25 text-center p-4 rounded">
-                        <h1 className="mx-auto text-center">Login As Admin</h1>
-                        <div className="d-grid gap-2 mx-auto justify-content-center mt-5">
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-1 mt-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Enter Email"
-                                        name="email"
-                                        value={credentials.email}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="mb-2 mt-4">
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        className="form-control"
-                                        value={credentials.password}
-                                        onChange={handleChange}
-                                        placeholder="Enter Password"
-                                    />
-                                </div>
-                                {error && (
-                                    <Alert severity="error" style={{ marginTop: "10px" }}>
-                                        {error}
-                                    </Alert>
-                                )}
+                </div>
 
-                                <Button type="submit" className="bg-secondary text-white col-12 mb-3 mt-4">
-                                    Login
-                                </Button>
-                            </form>
-                        </div>
+            </h1>
+            <div style={{
+                backgroundImage: `url(${wallpaper})`,
+                height: "84vh",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                fontFamily: "Arial"
+            }} className="d-flex justify-content-center align-items-center">
+                <div className="bg-white text-center p-4 rounded login">
+                    <h1 className="mx-auto text-center">Login As Admin</h1>
+                    <div className="d-grid gap-2 mx-auto justify-content-center mt-5">
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-1 mt-3">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter Email"
+                                    name="email"
+                                    value={credentials.email}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="mb-2 mt-4">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    className="form-control"
+                                    value={credentials.password}
+                                    onChange={handleChange}
+                                    placeholder="Enter Password"
+                                />
+                            </div>
+                            {error && (
+                                <Alert severity="error" style={{ marginTop: "10px" }}>
+                                    {error}
+                                </Alert>
+                            )}
+
+                            <Button type="submit" className="bg-secondary text-white col-12 mb-3 mt-4">
+                                Login
+                            </Button>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
     );
 }

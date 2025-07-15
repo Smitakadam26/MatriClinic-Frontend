@@ -171,9 +171,12 @@ export default function Home() {
     }, [])
     return (
         <div>
-            <h1 className="d-flex justify-content-between heading mx-5">
-                <img src={logo} alt="logo" style={{ width: "40vh" }} />
-                <div className="gap-1 mt-3">
+            <h1 className="heading mx-5">
+                <div className="d-flex flex-wrap justify-content-between">
+                    <div>
+                        <img src={logo} alt="logo" style={{ width: "40vh" }} />
+                    </div>
+                    <div className="gap-1 mt-3">
 
                     <Button>
                         <Link to="/Patientlogin" className="text-secondary text-decoration-none m-2">
@@ -188,6 +191,8 @@ export default function Home() {
                         <Outlet />
                     </Button>
                 </div>
+                </div>
+                
             </h1>
              <Collapse in={open}>
                 <Alert size="small"
@@ -218,7 +223,7 @@ export default function Home() {
                 fontFamily: "Arial"
             }} className="d-flex justify-content-center align-items-center">
                 
-                {type === "login" && <div className="bg-white w-25 text-center p-3 rounded">
+                {type === "login" && <div className="bg-white text-center p-3 rounded login">
                     <div className="mt-3">
                         <h1 className="mx-auto text-centermt-5">Login As Patient</h1>
                         <div className="d-grid gap-2 mx-auto justify-content-center mt-3">
@@ -261,7 +266,7 @@ export default function Home() {
                     </div>
 
                 </div>}
-                {type === "signup" && <div className="bg-white w-50 p-3 rounded">
+                {type === "signup" && <div className="bg-white p-3 rounded signup">
                     <div className="mt-1">
                         <h1 className="text-center">Register As Patient</h1>
                         <form onSubmit={handleSubmit} className="d-flex mt-1 p-2 row r-3">
@@ -384,7 +389,7 @@ export default function Home() {
 
                     </div>
                 </div>}
-                {type === "Forgetpassword" && <div className="bg-white w-25 text-center p-3 rounded">
+                {type === "Forgetpassword" && <div className="bg-white text-center p-3 rounded login">
                     <div className="mt-3">
                         <h1 className="mx-auto text-centermt-5">Forget Password</h1>
                         <div className="d-grid gap-2 mx-auto justify-content-center mt-3">

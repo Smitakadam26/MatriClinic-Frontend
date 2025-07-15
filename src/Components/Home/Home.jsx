@@ -7,8 +7,11 @@ export default function Home() {
   return (
     <div
     >
-      <h1 className="d-flex justify-content-between heading mx-5">
-        <img src={logo} alt="logo" style={{width:"40vh"}} />
+      <h1 className="heading mx-5">
+       <div className="d-flex flex-wrap justify-content-between">
+       <div>
+         <img src={logo} alt="logo" style={{width:"40vh"}} />
+       </div>
         <div className="gap-1 mt-3">
           <Button>
             <Link to="/Patientlogin" className="text-secondary text-decoration-none m-2"  style={{fontFamily:"Arial"}}>
@@ -23,6 +26,7 @@ export default function Home() {
             <Outlet />
           </Button>
         </div>
+       </div>
       </h1>
       <div style={{backgroundImage:`url(${wallpaper})` ,height:"84vh" , backgroundRepeat:"no-repeat", backgroundSize:"cover",backgroundPosition: "center"}} className="text-center">
           <h3 className="text-secondary p-3 h3animation"  style={{fontFamily:"Arial"}}>Happy Maternity</h3>

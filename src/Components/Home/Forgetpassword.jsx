@@ -5,7 +5,6 @@ import { Button } from "@mui/material"
 import logo from '../assets/logo.png'
 import wallpaper from '../assets/wallpaper.png'
 import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import Alert from "@mui/material/Alert";
 
 export default function Forgetpassword() {

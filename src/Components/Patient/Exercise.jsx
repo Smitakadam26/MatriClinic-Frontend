@@ -16,6 +16,7 @@ import {
     DialogTitle,
     IconButton
 } from "@mui/material";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import CloseIcon from '@mui/icons-material/Close'
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -60,6 +61,7 @@ export default function Exercise() {
     }]
     const [exercise, setexercise] = useState({})
     const [open, setopen] = useState(false);
+    const isSmallScreen = useMediaQuery('(max-width:500px)');
     return (
         <div>
             <div className="container mt-3">
@@ -73,17 +75,14 @@ export default function Exercise() {
                             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                                 className="contain">
                                 {data.map((record) => (
-                                    <Grid size={4} className="card__container gap-50">
+                                    <Grid size={isSmallScreen ? 7 : 4}  className="card__container gap-50">
                                         <Item className="mt-3 p-2" style={{ backgroundImage: `url(${record.images})`, height: "33vh" }}>
                                             <div className="d-flex flex-column justify-content-end h-100">
-                                                <div className="d-flex justify-content-between align-items-center bg border rounded-3" >
+                                                <div className="d-flex flex-wrap justify-content-between align-items-center bg border rounded-3" >
                                                     <h3 style={{ fontFamily: "cursive" }} className=''>{record.name}</h3>
                                                     <Button className="bg-white text-secondary" onClick={() => { setopen(true); setexercise(record) }}>Learn More</Button>
                                                 </div>
-                                            </div>{/*}
-                                            <div className='border rounded-2' style={{ fontFamily: "serif" }}>
-                                                <h4 className='text-white'><span style={{ fontFamily: "Impact" }}>Nutrients:</span> {record.description}</h4>
-                                            </div>*/}
+                                            </div>
                                         </Item>
                                     </Grid>
                                 ))}
@@ -123,7 +122,7 @@ export default function Exercise() {
                                 <img src={exercise.images} />
                             </div>
                             {exercise.name === "Wall pushups" &&<div>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Zd990gYvDvA?si=u-Yr2Zrp5aADGFO-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe size={isSmallScreen ? "small" : "large"} src="https://www.youtube.com/embed/Zd990gYvDvA?si=u-Yr2Zrp5aADGFO-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>}
                             {exercise.name === "Squats with a fitness ball" &&<div>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/Pc23LbwdkPQ?si=6Xur93BlU5SVFQoL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

@@ -102,7 +102,7 @@ export default function Profile() {
                 </div>
             </div>
             <div className="container">
-                <div className="row g-3 mx-auto mt-5 container"  style={{fontFamily:"Arial"}}>
+                <div className="row g-3 mx-auto mt-5 container profile"  style={{fontFamily:"Arial"}}>
                     <h3 className="col-md-6" >Email : <span className="text-secondary"> {admin.email}</span></h3>
                     <h3 className="col-md-6">Mobile Number : <span className="text-secondary"> {admin.mobileNumber}</span></h3>
                     <h3 className="col-md-6">Date of Birth : <span className="text-secondary"> {admin.dateOfBirth}</span></h3>

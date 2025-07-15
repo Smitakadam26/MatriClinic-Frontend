@@ -5,10 +5,14 @@ export default function Admin() {
     const { id } = useParams();
     return (
         <div>
-                <h1 className="d-flex justify-content-between heading mx-5">
-                    <img src={logo} alt="logo" style={{ width: "40vh" }} />
-                    <div className="navbar">
-                        <div className="d-flex">
+            <h1 className="heading mx-5">
+                <div className="d-flex flex-wrap justify-content-between">
+                    <div>
+                        <img src={logo} alt="logo" style={{ width: "40vh" }} />
+                    </div>
+
+                    <div className="navbar d-flex">
+                        <div className="d-flex flex-wrap">
                             <Button><Link to={`/Admin/${id}`} className="text-dark text-decoration-none">Appointments</Link></Button>
                             <Button><Link to='Registration' className="text-dark text-decoration-none">Registration</Link></Button>
                             <Button><Link to='Patients' className="text-dark text-decoration-none">Patients</Link></Button>
@@ -16,7 +20,9 @@ export default function Admin() {
                             <Button><Link to='Profile' className="text-dark text-decoration-none font-weight-bold">Profile</Link></Button>
                         </div>
                     </div>
-                </h1>
+                </div>
+
+            </h1>
             <Outlet />
         </div>
     )

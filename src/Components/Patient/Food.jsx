@@ -11,6 +11,7 @@ import month6 from '../assets/fruits.jpg'
 import month7 from '../assets/fish.jpg'
 import month8 from '../assets/milkshakes.jpg'
 import month9 from '../assets/grains.jpg'
+import useMediaQuery from '@mui/material/useMediaQuery';
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
@@ -69,36 +70,38 @@ export default function Food() {
             food: "Whole grains, fruits, warm soups,Dates (promotes labor readiness),Coconut water, herbal teas"
         }
     ]
+    const isSmallScreen = useMediaQuery('(max-width:500px)');
     return (
         <div >
             <div className="container mt-5">
-                <h1 className="m-3" style={{fontFamily:"Arial"}}>Pregnancy Monthly Diet Plan</h1>
+                <h1 className="m-3" style={{ fontFamily: "Arial" }}>Pregnancy Monthly Diet Plan</h1>
                 <Box sx={{ width: '100%' }}>
-                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                        className="contain">
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="contain"
+                    >
                         {data.map((record) => (
-                            <Grid size={4} className="card__container">
-                                <Item 
+                            <Grid size={isSmallScreen ? 7 : 4}  className="card__container">
+                                <Item
                                     style={{
-                                        backgroundImage : record.month === 1 ? `url(${month1})`
-                                                        : record.month === 2 ? `url(${month2})`
-                                                        : record.month === 3 ? `url(${month3})`
-                                                        : record.month === 4 ? `url(${month4})`
+                                        backgroundImage: record.month === 1 ? `url(${month1})`
+                                            : record.month === 2 ? `url(${month2})`
+                                                : record.month === 3 ? `url(${month3})`
+                                                    : record.month === 4 ? `url(${month4})`
                                                         : record.month === 5 ? `url(${month5})`
-                                                        : record.month === 6 ? `url(${month6})`
-                                                        : record.month === 7 ? `url(${month7})`
-                                                        : record.month === 8 ? `url(${month8})`
-                                                        : record.month === 9 ? `url(${month9})` :"#fff"}}
-                                        
-                                   className='card__article'
+                                                            : record.month === 6 ? `url(${month6})`
+                                                                : record.month === 7 ? `url(${month7})`
+                                                                    : record.month === 8 ? `url(${month8})`
+                                                                        : record.month === 9 ? `url(${month9})` : "#fff"
+                                    }}
+
+                                    className='card__article'
                                 >
 
                                     <div className="card__data text-white">
-                                        <h3 style={{fontFamily:"cursive"}}>Month: {record.month}</h3>
+                                        <h3 style={{ fontFamily: "cursive" }}>Month: {record.month}</h3>
                                     </div>
-                                    <div className='card__button border rounded-2'  style={{fontFamily:"serif"}}>
-                                        <h4 className='text-white'><span style={{fontFamily:"Impact"}}>Nutrients:</span> {record.nutrient}</h4>
-                                        <h5><span style={{fontFamily:"Impact"}}>Food:</span> {record.food}</h5>
+                                    <div className='card__button border rounded-2' style={{ fontFamily: "serif" }}>
+                                        <h4 className='text-white'><span style={{ fontFamily: "Impact" }}>Nutrients:</span> {record.nutrient}</h4>
+                                        <h5><span style={{ fontFamily: "Impact" }}>Food:</span> {record.food}</h5>
                                     </div>
 
 
@@ -106,19 +109,18 @@ export default function Food() {
                                 </Item>
                             </Grid>
                         ))}
-
                     </Grid>
                 </Box>
-                <h1 className="mt-4" style={{fontFamily:"Arial"}}>Avoid food during pregnancy :</h1>
+                <h1 className="mt-4" style={{ fontFamily: "Arial" }}>Avoid food during pregnancy :</h1>
                 <div>
                     <table className="table table-bordered w-100 mt-5">
                         <thead >
-                            <tr style={{fontFamily:"Arial"}}>
+                            <tr style={{ fontFamily: "Arial" }}>
                                 <th> Foods to Avoid During Pregnancy</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody style={{fontFamily:"Tahoma"}}>
+                        <tbody style={{ fontFamily: "Tahoma" }}>
                             <tr >
                                 <td>Raw or Undercooked Foods : </td>
                                 <td>Raw eggs ,Undercooked meat or chicken,Raw fish (sushi),Raw sprouts (e.g., alfalfa, moong) : </td>

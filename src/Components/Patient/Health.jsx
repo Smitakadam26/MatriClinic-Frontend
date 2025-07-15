@@ -65,7 +65,7 @@ export default function Health() {
         <div>
             <div>
                 <div className="m-5">
-                    <div>
+                    <div className="wallpaper">
                         <img src={wallpaper} alt="wallpaper" className="w-100 h-75" />
                     </div>
                 </div>
