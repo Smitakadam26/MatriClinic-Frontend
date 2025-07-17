@@ -86,7 +86,7 @@ export default function Patients() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [appointments, setappointments] = useState([]);
-    const [openappointments, setopenappointments] = useState([]);
+    const [openappointments, setopenappointments] = useState(false);
     const [selectedRecord, setSelectedRecord] = useState();
     const [documentopen, setdocumentopen] = useState(false);
     const handleChangePage = (event, newPage) => {

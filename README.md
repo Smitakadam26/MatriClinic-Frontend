@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# 🤰 MatriClinic Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MatriClinic is a web-based maternity management platform designed for pregnant women and maternity hospitals. It provides a secure, user-friendly interface for both patients and administrators.
 
-## Available Scripts
+This is the frontend built with React, supporting two dashboards:
+- 👩 Patient Dashboard
+- 🧑‍⚕️ Admin Dashboard
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🏥 Purpose
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+MatriClinic is developed to help maternity hospitals manage patient visits, doctor assignments, medical records, nutrition guidance, and appointment tracking for expecting mothers.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
+## 🌐 Live Demo
 
-### `npm test`
+- [Frontend Live](https://matri-clinic-frontend.vercel.app)
+- [Backend Repo](https://github.com/Smitakadam26/MatriClinic-backend)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🧰 Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React
+- Material UI
+- Bootstrap
+- CSS
+- Vercel (Deployment)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📱 Dashboards Overview
 
-### `npm run eject`
+### 🧑‍⚕️ Admin Dashboard
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- View all appointments
+  - Today's appointments
+  - Schedule appointments and Add visit records and condition notes
+  - Edit appointments
+- View patients and manage patient list, edit patient data
+- Register the patients and doctors as well.
+- Manage doctor list, view doctor data,today's appointments of each doctor, 
+- Book next appointment during current visit
+- Secure login/logout
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 👩 Patient Dashboard
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- View personal profile and medical history
+- Access all visit records and reports
+- Secure login/logout with token-based auth
+- View nutrition and food details for each month
+- Monthly exercise and health tips
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🔐 Security
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- JWT-based Authentication and Authorization
+- Role-based access control (Patient vs Admin)
+- Protected Routes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

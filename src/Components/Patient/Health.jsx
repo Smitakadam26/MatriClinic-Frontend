@@ -7,7 +7,6 @@ import heartrate from '../assets/icons8-heartrate-16.png';
 import temp from '../assets/icons8-temperature-16.png';
 import weight from '../assets/icons8-weight-16.png';
 import movement from '../assets/icons8-movement-16.png';
-import urine from '../assets/icons8-urine-test-16.png';
 import HeightIcon from '@mui/icons-material/Height';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 import ControlCameraIcon from '@mui/icons-material/ControlCamera';
