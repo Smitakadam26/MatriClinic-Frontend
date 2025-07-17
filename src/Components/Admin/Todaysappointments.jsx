@@ -75,7 +75,7 @@ export default function Todaysappointments() {
     const [searchVal, setsearchVal] = useState();
     const getusers = async () => {
         try {
-            let result = await fetch("http://localhost:8080/patients");
+            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/patients");
             result = await result.json();
             setpatients(result);
         } catch (error) {
@@ -88,7 +88,7 @@ export default function Todaysappointments() {
     }
     const fetchtodaysappointments = async (date) => {
         try {
-            const res = await fetch(`http://localhost:8080/Appointments/todaysappointments?date=${date}`);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/todaysappointments?date=${date}`);
             const data = await res.json();
             console.log(data);
             settodaysappointments(data);
@@ -99,7 +99,7 @@ export default function Todaysappointments() {
     }
     const fetchappointments = async () => {
         try {
-            const res = await fetch(`http://localhost:8080/Appointments`);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments`);
             const data = await res.json();
             console.log(data);
             setappointments(data);
@@ -128,7 +128,7 @@ export default function Todaysappointments() {
     const fetchAvailability = async (date, Doctorid) => {
         console.log(date, Doctorid)
         try {
-            const res = await fetch(`http://localhost:8080/Appointments/availability?date=${date}&&Doctorid=${Doctorid}`);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/availability?date=${date}&&Doctorid=${Doctorid}`);
             const data = await res.json();
             setslots(data.availableSlots)
         }
@@ -151,7 +151,7 @@ export default function Todaysappointments() {
     const handledit = async (id) => {
         seteditappointmentopen(true);
         try {
-            const res = await fetch(`http://localhost:8080/Appointments/` + id);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/` + id);
             const data = await res.json();
             console.log(data);
             setappointment(data);
@@ -174,7 +174,7 @@ export default function Todaysappointments() {
     }
     const editappointmnt = () => {
         console.log(appointment)
-        fetch("http://localhost:8080/Appointments/" + appointment._id, {
+        fetch("https://matri-clinic-backend-tau.vercel.app/Appointments/" + appointment._id, {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -228,10 +228,11 @@ export default function Todaysappointments() {
             formData.append("bloodtestfile", appointment.bloodtestfile);
             formData.append("urinetestfile", appointment.urinetestfile);
             formData.append("stresstestfile", appointment.stresstestfile);
+            formData.append("ultrasonicreportType",appointment.ultrasonicreportType);
             formData.append("dateofvisit", currentdate);
             formData.append("isvisited", appointment.isvisited);
             try {
-                const res = await fetch('http://localhost:8080/Appointments', {
+                const res = await fetch('https://matri-clinic-backend-tau.vercel.app/Appointments', {
                     method: 'POST',
                     body: formData,
                 });

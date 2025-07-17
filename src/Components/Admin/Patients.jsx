@@ -74,7 +74,7 @@ export default function Patients() {
     
     const getusers = async () => {
         try {
-            let result = await fetch("http://localhost:8080/patients");
+            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/patients");
             result = await result.json();
             setpatients(result);
             setallpatients(result)
@@ -93,7 +93,7 @@ export default function Patients() {
     const fetchpatient = async (id) => {
         console.log(id)
         try {
-            let result = await fetch("http://localhost:8080/patients/" + id);
+            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/patients/" + id);
             result = await result.json();
             console.log(result);
             setPatient(result);

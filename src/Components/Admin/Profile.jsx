@@ -38,7 +38,7 @@ export default function Profile() {
 
     };
     const handlelogout = () => {
-        fetch(`http://localhost:8080/admin/logout`)
+        fetch(`https://matri-clinic-backend-tau.vercel.app/admin/logout`)
             .then((response) => {
                 console.log(response);
                 localStorage.removeItem("token")

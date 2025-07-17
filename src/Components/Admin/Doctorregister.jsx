@@ -37,7 +37,7 @@ export default function Doctorregister() {
             state.yearofExper &&
             state.qualification
         ) {
-            fetch("https://matriclinic-website-backend.onrender.com/doctors", {
+            fetch("https://matri-clinic-backend-tau.vercel.app/doctors", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

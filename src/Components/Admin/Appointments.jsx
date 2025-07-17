@@ -32,7 +32,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
     }
     const fetchAvailability = async (date) => {
         try {
-            const res = await fetch(`https://matriclinic-website-backend.onrender.com/Appointments/availability?date=${date}&&Doctorid=${patient.Doctorid}`);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/availability?date=${date}&&Doctorid=${patient.Doctorid}`);
             const data = await res.json();
             setdate(data.date)
             setslots(data.availableSlots)
@@ -100,7 +100,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
             formData.append("dateofvisit", appointmt.dateofvisit);
             formData.append("isvisited", appointmt.isvisited);
             try {
-                const res = await fetch('http://localhost:8080/Appointments', {
+                const res = await fetch('https://matri-clinic-backend-tau.vercel.app/Appointments', {
                     method: 'POST',
                     body: formData,
                 });
@@ -109,7 +109,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
                 if (res.ok) {
                     alert('Upload successful');
                     console.log(data);
-                    fetch("http://localhost:8080/Appointments//editvisitstatus/" + appointmentID, {
+                    fetch("https://matri-clinic-backend-tau.vercel.app/Appointments//editvisitstatus/" + appointmentID, {
                         method: "put",
                         headers: {
                             "Content-Type": "application/json",

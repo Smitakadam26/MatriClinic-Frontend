@@ -39,7 +39,7 @@ export default function PatientProfile() {
     };
     const handlelogout = () => {
 
-        fetch(`http://localhost:8080/patients/logout`)
+        fetch(`https://matri-clinic-backend-tau.vercel.app/patients/logout`)
             .then((response) => {
                 console.log(response);
                 localStorage.removeItem("token")

@@ -122,7 +122,7 @@ export default function Exercise() {
                                 <img src={exercise.images} />
                             </div>
                             {exercise.name === "Wall pushups" &&<div>
-                                <iframe size={isSmallScreen ? "small" : "large"} src="https://www.youtube.com/embed/Zd990gYvDvA?si=u-Yr2Zrp5aADGFO-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Zd990gYvDvA?si=u-Yr2Zrp5aADGFO-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>}
                             {exercise.name === "Squats with a fitness ball" &&<div>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/Pc23LbwdkPQ?si=6Xur93BlU5SVFQoL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

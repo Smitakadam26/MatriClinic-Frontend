@@ -15,21 +15,21 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 export default function Appointments() {
     const { id } = useParams();
     const [appointments, setappointments] = useState([]);
-    const [dataDate,setdataDate] = useState();
+    const [dataDate, setdataDate] = useState();
     const currentdate = new Date();
 
     const fixedDate = dayjs(dataDate);
     const fetchappointments = async (id) => {
         console.log(id)
         try {
-            let result = await fetch(`http://localhost:8080/Appointments/patientapmnt?patientid=${id}`);
+            let result = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`);
             result = await result.json();
-            console.log(result);
-            const filterBySearch = result.filter((item) => {
-            if (item.isvisited === false) { return item; }
-        })
-            setdataDate(filterBySearch[0].date)
             setappointments(result);
+            const filterBySearch = result.filter((item) => {
+                if (item.isvisited === false) { return item; }
+            })
+            setdataDate(filterBySearch[0].date)
+            
         }
         catch (err) {
             console.error("Error", err)
@@ -47,12 +47,11 @@ export default function Appointments() {
     }
     useState(() => {
         fetchappointments(id)
-        //console.log(appointments.filter((r)=> (r.date)))
-    
+
     }, [id])
     return (
         <div>
-            <div className="min-h-screen bg-background p-4 border rounded-3 container mt-5 transperent" style={{ borderColor: "rgba(247, 246, 246, 0.94)"}}>
+            <div className="min-h-screen bg-background p-4 border rounded-3 container mt-5 transperent" style={{ borderColor: "rgba(247, 246, 246, 0.94)" }}>
                 <div className="max-w-7xl mx-auto appointment">
 
                     <div className="d-flex flex-wrap justify-content-between">

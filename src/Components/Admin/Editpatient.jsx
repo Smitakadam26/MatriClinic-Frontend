@@ -17,7 +17,7 @@ export default function Editpatient() {
     const fetchpatient = async (id) => {
         console.log(id)
         try {
-            let result = await fetch("http://localhost:8080/patients/" + id);
+            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/patients/" + id);
             result = await result.json();
             console.log(result);
             setpatient(result);
@@ -40,7 +40,7 @@ export default function Editpatient() {
     }
     const handleEdit = (id, newState) => {
 
-        fetch("http://localhost:8080/patients/" + id, {
+        fetch("https://matri-clinic-backend-tau.vercel.app/patients/" + id, {
             method: "put",
             headers: {
                 "Content-Type": "application/json",

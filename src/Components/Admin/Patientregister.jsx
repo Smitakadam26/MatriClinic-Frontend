@@ -44,7 +44,7 @@ export default function Patientregister() {
             state.birthdate &&
             state.Doctorid
         ) {
-            fetch("http://localhost:8080/patients", {
+            fetch("https://matri-clinic-backend-tau.vercel.app/patients", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export default function Patientregister() {
     };
     const getdoctors = async () => {
         try {
-            let result = await fetch("http://localhost:8080/doctors");
+            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/doctors");
             result = await result.json();
             setdoctors(result);
         } catch (error) {

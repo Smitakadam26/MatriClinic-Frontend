@@ -38,7 +38,7 @@ export default function Health() {
     const fetchappointments = async (id) => {
         console.log(id)
         try {
-            let result = await fetch(`http://localhost:8080/Appointments/patientapmnt?patientid=${id}`);
+            let result = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`);
             result = await result.json();
             console.log(result);
             setappointments(result);
@@ -49,7 +49,7 @@ export default function Health() {
     }
     const fetchadmin = async (id) => {
         try {
-            const res = await fetch(`http://localhost:8080/admin`);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/admin`);
             const data = await res.json();
             setadmin(data);
         }
@@ -196,6 +196,18 @@ export default function Health() {
                                                         />
                                                         <span className="fw-bold w-25">Fetal Movement:</span>
                                                         <span className="ms-2 text-dark">{record.fetalMovement}</span>
+                                                    </div>
+                                                )}
+                                                {record.ultrasonicreportType !== "undefined" && (
+                                                    <div className="d-flex align-items-center mb-2">
+                                                        <img
+                                                            src={movement}
+                                                            alt="heartrate"
+                                                            className="me-2 p-1 border border-warning bg-warning rounded-3"
+                                                            style={{ width: "32px", height: "32px" }}
+                                                        />
+                                                        <span className="fw-bold w-25">Ultrasonic report Type:</span>
+                                                        <span className="ms-2 text-dark">{record.ultrasonicreportType}</span>
                                                     </div>
                                                 )}
                                                 {record.date !== "undefined" && (
