@@ -21,7 +21,6 @@ export default function Adminlogin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(credentials)
         const res = await fetch("https://matri-clinic-backend-tau.vercel.app/admin/login", {
             method: "POST",
             headers: {
