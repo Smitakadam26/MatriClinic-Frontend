@@ -37,6 +37,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
+import {Grid,Box,Divider} from '@mui/material'
 import Typography from '@mui/material/Typography';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 const Search = styled('div')(({ theme }) => ({
@@ -303,311 +304,134 @@ export default function Patients() {
             </Dialog>
             <Dialog
                 fullWidth={true}
-                maxWidth={'md'}
+                maxWidth={'lg'}
                 open={openappointments}
                 onClose={() => { setdocumentopen(false) }}
             >
                 <DialogTitle>Appointments Details</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        <div className="row gy-4">
-                            {/* Appointment Details */}
+                        <Grid container spacing={3}>
+                            {appointments.map((record, index) => (
+                                record.dateofvisit !== "undefined" && (
+                                    <Grid item xs={12} key={index}>
 
-                            <div className="col-md-6">
-                                <div className="p-3 border rounded shadow-sm bg-white">
-                                    <h3 className="mb-4 text-secondary border-bottom pb-2">Appointment Details</h3>
-                                    {appointments.map((record, index) =>
-                                        record.dateofvisit !== "undefined" && (
-                                            <div key={index} className="mb-3">
-                                                <span className="text-muted fw-semibold">
-                                                    {/* Format date */}
-                                                    {new Date(record.dateofvisit).getDate()}{" "}
-                                                    {new Date(record.dateofvisit).toLocaleString("default", { month: "long" })}
-                                                </span>
-                                                <div className="border rounded p-3 mt-2 bg-light">
-                                                    {record.month !== "undefined" !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={temp}
-                                                                alt="Temperature"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Month:</span>
-                                                            <span className="ms-2 text-dark">{record.month} Month</span>
-                                                        </div>
-                                                    )}
-                                                    {record.week !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={temp}
-                                                                alt="Temperature"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Week:</span>
-                                                            <span className="ms-2 text-dark">{record.week} Weeks</span>
-                                                        </div>
-                                                    )}
-                                                    {record.temperature !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={temp}
-                                                                alt="Temperature"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Temperature:</span>
-                                                            <span className="ms-2 text-dark">{record.temperature}</span>
-                                                        </div>
-                                                    )}
+                                        {/* Appointment Card */}
+                                        <Card elevation={3} sx={{ padding: 3, borderRadius: 3 }}>
 
-                                                    {record.weight !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={weight}
-                                                                alt="Weight"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Weight:</span>
-                                                            <span className="ms-2 text-dark">{record.weight}</span>
-                                                        </div>
-                                                    )}
+                                            {/* Appointment Date Header */}
+                                            <Typography
+                                                variant="h6"
+                                                sx={{ fontWeight: 'bold', color: '#5a5a5a', mb: 2 }}
+                                            >
+                                                📅 {new Date(record.dateofvisit).toLocaleDateString('en-US', {
+                                                    day: 'numeric',
+                                                    month: 'long',
+                                                    year: 'numeric'
+                                                })}
+                                            </Typography>
 
-                                                    {record.bloodpresure !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={bloodpresure}
-                                                                alt="Blood Pressure"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Blood Pressure:</span>
-                                                            <span className="ms-2 text-dark">{record.bloodpresure}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.bloodsugar !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <BloodtypeIcon
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Blood Sugar:</span>
-                                                            <span className="ms-2 text-dark">{record.bloodsugar}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.heartrate !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={heartrate}
-                                                                alt="heartrate"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Heart Rate:</span>
-                                                            <span className="ms-2 text-dark">{record.heartrate}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.fundalHeight !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <HeightIcon
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }} />
-                                                            <span className="fw-bold w-25">Fundal Height:</span>
-                                                            <span className="ms-2 text-dark">{record.fundalHeight}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.fetalPosition !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <ControlCameraIcon
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }} />
-                                                            <span className="fw-bold w-25">Fetal Position:</span>
-                                                            <span className="ms-2 text-dark">{record.fetalPosition}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.fetalMovement !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={movement}
-                                                                alt="heartrate"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Fetal Movement:</span>
-                                                            <span className="ms-2 text-dark">{record.fetalMovement}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.ultrasonicreportType !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <img
-                                                                src={movement}
-                                                                alt="heartrate"
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }}
-                                                            />
-                                                            <span className="fw-bold w-25">Ultrasonic report Type:</span>
-                                                            <span className="ms-2 text-dark">{record.ultrasonicreportType}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.date !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <DateRangeIcon
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }} />
-                                                            <span className="fw-bold w-25">Next Appointment Date:</span>
-                                                            <span className="ms-2 text-dark">{record.date}</span>
-                                                        </div>
-                                                    )}
-                                                    {record.time !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <AccessTimeFilledIcon
-                                                                className="me-2 p-1 border border-warning bg-warning rounded-3"
-                                                                style={{ width: "32px", height: "32px" }} />
-                                                            <span className="fw-bold w-25">Next Appointment Time:</span>
-                                                            <span className="ms-2 text-dark">{record.time}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        )
-                                    )}
-                                </div>
-                            </div>
+                                            <Divider sx={{ mb: 3 }} />
 
-                            {/* Files Details */}
-                            <div className="col-md-6">
-                                <div className="p-3 border rounded shadow-sm bg-white">
-                                    <h3 className="mb-4 text-secondary border-bottom pb-2">Files Details</h3>
-                                    {appointments.map((record, index) =>
-                                        record.dateofvisit !== "undefined" && (
-                                            <div key={index} className="mb-3">
-                                                <span className="text-muted fw-semibold">
-                                                    {new Date(record.dateofvisit).getDate()}{" "}
-                                                    {new Date(record.dateofvisit).toLocaleString("default", { month: "long" })}
-                                                </span>
-                                                <div className="border rounded p-3 mt-2 bg-light">
-                                                    {record.labtestfile !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <span className="fw-bold w-25">Lab Report:</span>
-                                                            <Button
-                                                                variant="outline-primary"
-                                                                size="sm"
-                                                                className="ms-2"
-                                                                onClick={() => {
-                                                                    setdocumentopen(true);
-                                                                    setSelectedRecord(record.labtestfile);
+                                            {/* Appointment Details */}
+                                            <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                                                Appointment Details
+                                            </Typography>
+
+                                            <Grid container spacing={2}>
+
+                                                {/* Helper Row Component */}
+                                                {[
+                                                    { label: "Month", value: record.month },
+                                                    { label: "Week", value: record.week },
+                                                    { label: "Temperature", value: record.temperature },
+                                                    { label: "Weight", value: record.weight },
+                                                    { label: "Blood Pressure", value: record.bloodpresure },
+                                                    { label: "Blood Sugar", value: record.bloodsugar },
+                                                    { label: "Heart Rate", value: record.heartrate },
+                                                    { label: "Fundal Height", value: record.fundalHeight },
+                                                    { label: "Fetal Position", value: record.fetalPosition },
+                                                    { label: "Fetal Movement", value: record.fetalMovement },
+                                                    { label: "Ultrasonic Report Type", value: record.ultrasonicreportType },
+                                                    { label: "Next Appointment Date", value: record.date },
+                                                    { label: "Next Appointment Time", value: record.time },
+                                                ].map((item, i) => (
+                                                    item.value !== "undefined" && (
+                                                        <Grid item xs={12} sm={6} key={i}>
+                                                            <Box
+                                                                sx={{
+                                                                    display: 'flex',
+                                                                    justifyContent: 'space-between',
+                                                                    padding: 1.5,
+                                                                    backgroundColor: '#fafafa',
+                                                                    borderRadius: 2,
+                                                                    border: '1px solid #e0e0e0'
                                                                 }}
                                                             >
-                                                                <SearchIcon />
-                                                            </Button>
-                                                        </div>
-                                                    )}
-                                                    {record.ultrasonicreport !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <span className="fw-bold w-25">Ultrasonic Report:</span>
-                                                            <Button
-                                                                variant="outline-primary"
-                                                                size="sm"
-                                                                className="ms-2"
-                                                                onClick={() => {
-                                                                    setdocumentopen(true);
-                                                                    setSelectedRecord(record.ultrasonicreport);
-                                                                }}
-                                                            >
-                                                                <SearchIcon />
-                                                            </Button>
-                                                        </div>
-                                                    )}
-                                                    {record.bloodtestfile !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <span className="fw-bold w-25">Blood Test:</span>
-                                                            <Button
-                                                                variant="outline-primary"
-                                                                size="sm"
-                                                                className="ms-2"
-                                                                onClick={() => {
-                                                                    setdocumentopen(true);
-                                                                    setSelectedRecord(record.bloodtestfile);
-                                                                }}
-                                                            >
-                                                                <SearchIcon />
-                                                            </Button>
-                                                        </div>
-                                                    )}
-                                                    {record.urinetestfile !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <span className="fw-bold w-25">Urine Test:</span>
-                                                            <Button
-                                                                variant="outline-primary"
-                                                                size="sm"
-                                                                className="ms-2"
-                                                                onClick={() => {
-                                                                    setdocumentopen(true);
-                                                                    setSelectedRecord(record.urinetestfile);
-                                                                }}
-                                                            >
-                                                                <SearchIcon />
-                                                            </Button>
-                                                        </div>
-                                                    )}
-                                                    {record.stresstestfile !== "undefined" && (
-                                                        <div className="d-flex align-items-center mb-2">
-                                                            <span className="fw-bold w-25">Stress Test:</span>
-                                                            <Button
-                                                                variant="outline-primary"
-                                                                size="sm"
-                                                                className="ms-2"
-                                                                onClick={() => {
-                                                                    setdocumentopen(true);
-                                                                    setSelectedRecord(record.stresstestfile);
-                                                                }}
-                                                            >
-                                                                <SearchIcon />
-                                                            </Button>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        )
-                                    )}
-                                </div>
-                            </div>
-                            <Dialog
-                                fullScreen
-                                open={documentopen}
-                                onClose={() => { setdocumentopen(false); setSelectedRecord() }}
+                                                                <Typography sx={{ fontWeight: 600 }}>
+                                                                    {item.label}:
+                                                                </Typography>
+                                                                <Typography>{item.value}</Typography>
+                                                            </Box>
+                                                        </Grid>
+                                                    )
+                                                ))}
 
-                            >
-                                <AppBar sx={{ position: 'relative' }}>
-                                    <Toolbar>
-                                        <IconButton
-                                            edge="start"
-                                            color="inherit"
-                                            onClick={() => { setdocumentopen(false); setSelectedRecord() }}
-                                            aria-label="close"
-                                        >
-                                            <CloseIcon />
-                                        </IconButton>
-                                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                                            {selectedRecord || 'File Preview'}
-                                        </Typography>
-                                    </Toolbar>
-                                </AppBar>
-                                <List sx={{ height: '100%' }}>
-                                    <iframe
-                                        src={`https://matri-clinic-backend-tau.vercel.app/uploads/${selectedRecord}`}
-                                        width="100%"
-                                        height="100%"
-                                        style={{ flex: 1, border: 'none' }}
-                                    ></iframe>
-                                </List>
-                            </Dialog>
-                        </div>
+                                            </Grid>
+
+                                            <Divider sx={{ my: 3 }} />
+
+                                            {/* Files Section */}
+                                            <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                                                Files & Reports
+                                            </Typography>
+
+                                            {[
+                                                { label: "Lab Report", file: record.labtestfile },
+                                                { label: "Ultrasonic Report", file: record.ultrasonicreport },
+                                                { label: "Blood Test", file: record.bloodtestfile },
+                                                { label: "Urine Test", file: record.urinetestfile },
+                                                { label: "Stress Test", file: record.stresstestfile }
+                                            ].map((item, i) => (
+                                                item.file !== "undefined" && (
+                                                    <Box
+                                                        key={i}
+                                                        sx={{
+                                                            mb: 2,
+                                                            display: 'flex',
+                                                            justifyContent: 'space-between',
+                                                            padding: 1.5,
+                                                            backgroundColor: '#f3f3f3',
+                                                            borderRadius: 2,
+                                                            border: '1px solid #dcdcdc'
+                                                        }}
+                                                    >
+                                                        <Typography sx={{ fontWeight: 600 }}>
+                                                            {item.label}
+                                                        </Typography>
+
+                                                        <Button
+                                                            size="small"
+                                                            variant="contained"
+                                                            onClick={() => {
+                                                                setdocumentopen(true);
+                                                                setSelectedRecord(item.file);
+                                                            }}
+                                                        >
+                                                            View File
+                                                        </Button>
+                                                    </Box>
+                                                )
+                                            ))}
+
+                                        </Card>
+                                    </Grid>
+                                )
+                            ))}
+                        </Grid>
                     </DialogContentText>
-
                 </DialogContent>
+
                 <DialogActions>
                     <Button className="text-white bg-secondary" onClick={() => { setopenappointments(false) }}>Close</Button>
                 </DialogActions>
