@@ -1,6 +1,8 @@
 import "./Home.css";
-import { Button } from "@mui/material";
+import { Button, FormControl, TextField } from "@mui/material";
 import { useState } from "react";
+
+import { Typography, AppBar, Toolbar, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import "./Home.css";
@@ -42,74 +44,95 @@ export default function Adminlogin() {
     };
     return (
         <div>
-            <h1 className="heading mx-5">
-                <div className="d-flex flex-wrap justify-content-between">
-                    <div>
-                        <img src={logo} alt="logo" style={{ width: "40vh" }} />
-                    </div>
-                    <div className="gap-1 mt-3">
-
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static" sx={{ backgroundColor: "white", height: 115 }}>
+                    <Toolbar sx={{
+                        alignItems: "center", height: "100%"
+                    }}>
+                        <Box component="img"
+                            src={logo}
+                            alt="Logo"
+                            sx={{ height: 100, marginRight: 2 }}
+                        />
+                        <Box sx={{ flexGrow: 1 }} />
                         <Button>
-                            <Link to="/Patientlogin" className="text-secondary text-decoration-none m-2">
+                            <Link to="/Patientlogin" className="text-secondary text-decoration-none m-2" style={{ fontFamily: "Arial" }}>
                                 Patient
                             </Link>
                             <Outlet />
                         </Button>
                         <Button>
-                            <Link to="/Adminlogin" className="text-secondary text-decoration-none m-2">
+                            <Link to="/Adminlogin" className="text-secondary text-decoration-none m-2" style={{ fontFamily: "Arial" }}>
                                 Admin
                             </Link>
                             <Outlet />
                         </Button>
-                    </div>
-                </div>
-
-            </h1>
-            <div style={{
-                backgroundImage: `url(${wallpaper})`,
-                height: "84vh",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                fontFamily: "Arial"
-            }} className="d-flex justify-content-center align-items-center">
-                <div className="bg-white text-center p-4 rounded login">
-                    <h1 className="mx-auto text-center">Login As Admin</h1>
-                    <div className="d-grid gap-2 mx-auto justify-content-center mt-5">
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-1 mt-3">
-                                <input
+                    </Toolbar>
+                </AppBar>
+            </Box>
+            <Box
+                sx={{
+                    backgroundImage: `url(${wallpaper})`,
+                    height: "84vh",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    textAlign: "center",
+                    fontFamily: "Arial",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+            >
+                <Box sx={{
+                    backgroundColor: "white",
+                    textAlign: "center",
+                    padding: 4,
+                    boxSizing: 'border-box'
+                }}>
+                    <Typography varient="h1" component="h1" sx={{ textAlign: "center" ,fontSize: "6vh"  }}>Login As Admin</Typography>
+                    <Box sx={{
+                        display: "grid",
+                        gap: 2,
+                        justifyContent: "center",
+                        marginTop: 5
+                    }}>
+                        <FormControl onSubmit={handleSubmit}>
+                            <Box sx={{ marginBottom: 1, marginTop: 3 }}>
+                                <TextField
                                     type="text"
-                                    className="form-control"
                                     placeholder="Enter Email"
                                     name="email"
                                     value={credentials.email}
                                     onChange={handleChange}
+                                    variant="outlined"
+                                    fullWidth
                                 />
-                            </div>
-                            <div className="mb-2 mt-4">
-                                <input
+                            </Box>
+                            <Box sx={{ marginBottom: 1, marginTop: 3 }}>
+                                <TextField
                                     type="password"
+                                    placeholder="Enter Password"
                                     name="password"
-                                    className="form-control"
                                     value={credentials.password}
                                     onChange={handleChange}
-                                    placeholder="Enter Password"
+                                    variant="outlined"
+                                    fullWidth
                                 />
-                            </div>
+                            </Box>
                             {error && (
                                 <Alert severity="error" style={{ marginTop: "10px" }}>
                                     {error}
                                 </Alert>
                             )}
 
-                            <Button type="submit" className="bg-secondary text-white col-12 mb-3 mt-4">
+                            <Button type="submit" sx={{backgroundColor:"#46505A",marginTop:4,marginBottom:3,color:"white"}}>
                                 Login
                             </Button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                        </FormControl>
+                    </Box>
+                </Box>
+            </Box>
         </div>
     );
 }
