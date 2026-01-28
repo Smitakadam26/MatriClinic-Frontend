@@ -257,7 +257,8 @@ export default function Health() {
                 </AppBar>
 
                 <iframe
-                    src={`http://localhost:8080/uploads/${file}`}
+                   src={`https://matri-clinic-backend-tau.vercel.app/uploads/${file}`}
+
                     width="100%"
                     height="100%"
                     style={{ border: "none" }}
