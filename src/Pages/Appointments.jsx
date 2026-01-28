@@ -24,7 +24,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
             const isoDate = result.dateOfBirth;
             const date = new Date(isoDate);
             const formatted = date.toISOString().split("T")[0];
-            setPatient((prev) => ({ ...prev, ["dateOfBirth"]: formatted }))
+            setPatient((prev) => ({ ...prev, dateOfBirth: formatted }))
         }
         catch (err) {
             console.error("Error", err)
@@ -39,14 +39,14 @@ export default function Appointments({ patient_Id, appointmentID }) {
             console.log(data.availableSlots);
             setappointmt((prev) => ({
                 ...prev,
-                ["name"]: patient.name,
-                ["mobileNumber"]: patient.mobileNumber,
-                ["doctor"]: patient.doctor,
-                ["Doctorid"]:patient.Doctorid,
-                ["Patient_Id"]: patient._id,
-                ["isvisited"]: false,
-                ["dateofvisit"]: currentdate,
-                ["identity"]:patient.identity
+                name: patient.name,
+                mobileNumber: patient.mobileNumber,
+                doctor: patient.doctor,
+                Doctorid:patient.Doctorid,
+                Patient_Id: patient._id,
+                isvisited: false,
+                dateofvisit: currentdate,
+                identity:patient.identity
             }))
         }
         catch (err) {
@@ -114,7 +114,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify({ ["isvisited"]: true }),
+                        body: JSON.stringify({ isvisited: true }),
                     })
                         .then((response) => {
                             console.log(response);
@@ -440,7 +440,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
                                 <label className="form-label w-0 p-2" placeholder="Name">Slots : </label>
                                 <span className="d-flex gap-3 p-2">
                                     {slots.map((time) => (
-                                        <Button className="text-white bg-primary" onClick={() => { setappointmt({ ...appointmt, ["time"]: time }); setTime(time) }}>
+                                        <Button className="text-white bg-primary" onClick={() => { setappointmt({ ...appointmt, time: time }); setTime(time) }}>
                                             {time}
                                         </Button>
                                     ))}

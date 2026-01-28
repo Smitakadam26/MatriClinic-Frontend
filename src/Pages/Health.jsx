@@ -52,10 +52,7 @@ export default function Health() {
     const [file, setFile] = useState("");
    
 
-    useEffect(() => {
-        fetchAppointments();
-        fetchAdmin();
-    }, [id]);
+   
 
     const fetchAppointments = async () => {
         const res = await fetch(
@@ -68,7 +65,10 @@ export default function Health() {
         const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/admin`);
         setAdmin(await res.json());
     };
-
+ useEffect(() => {
+        fetchAppointments();
+        fetchAdmin();
+    }, []);
     const openFile = (fileName) => {
         setFile(fileName);
         setOpen(true);
