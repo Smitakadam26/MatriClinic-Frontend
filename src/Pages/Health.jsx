@@ -26,14 +26,7 @@ import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import wallpaper from "../assets/images/wallpaper.png";
 
 const Transition = (props) => <Slide direction="up" {...props} />;
-
-export default function Health() {
-    const { id } = useParams();
-    const [appointments, setAppointments] = useState([]);
-    const [admin, setAdmin] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [file, setFile] = useState("");
-    const StatCard = ({ icon, label, value }) => (
+ const StatCard = ({ icon, label, value }) => (
         <Box
             sx={{
                 p: 2,
@@ -51,6 +44,13 @@ export default function Health() {
             </Typography>
         </Box>
     );
+export default function Health() {
+    const { id } = useParams();
+    const [appointments, setAppointments] = useState([]);
+    const [admin, setAdmin] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [file, setFile] = useState("");
+   
 
     useEffect(() => {
         fetchAppointments();
