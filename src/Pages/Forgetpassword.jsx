@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useState } from "react"
 import { useParams } from "react-router-dom";
 import { Button } from "@mui/material"
-import logo from '../assets/logo.png'
-import wallpaper from '../assets/wallpaper.png'
+import logo from '../assets/images/logo.png'
+import wallpaper from '../assets/images/wallpaper.png'
 import Collapse from '@mui/material/Collapse';
 import Alert from "@mui/material/Alert";
 

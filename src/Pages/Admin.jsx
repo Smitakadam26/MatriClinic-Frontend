@@ -1,6 +1,6 @@
 import { Button } from "@mui/material"
 import { Link, Outlet, useParams } from "react-router-dom"
-import logo from '../assets/logo.png'
+import logo from '../assets/images/logo.png';
 export default function Admin() {
     const { id } = useParams();
     return (

@@ -1,15 +1,14 @@
 import "./Home.css";
-import { Button, Box, AppBar, Toolbar, Typography, Alert, FormControl, Select,Grid, TextField } from "@mui/material";
+import { Button, Box, Typography, Alert, FormControl, Select,Grid, TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuItem from '@mui/material/MenuItem';
 import { useEffect } from "react";
 import "./Home.css";
-import { Link, Outlet } from "react-router-dom";
-import logo from '../assets/logo.png'
-import wallpaper from '../assets/wallpaper.png'
+import wallpaper from '../assets/images/wallpaper.png'
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
+import Header from "../Components/Header";
 
 export default function Home() {
     const [credentials, setCredentials] = useState({});
@@ -167,33 +166,8 @@ export default function Home() {
         getdoctors()
     }, [])
     return (
-        <div>
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" sx={{ backgroundColor: "white", height: 115 }}>
-                    <Toolbar sx={{
-                        alignItems: "center", height: "100%"
-                    }}>
-                        <Box component="img"
-                            src={logo}
-                            alt="Logo"
-                            sx={{ height: 100, marginRight: 2 }}
-                        />
-                        <Box sx={{ flexGrow: 1 }} />
-                        <Button>
-                            <Link to="/Patientlogin" className="text-secondary text-decoration-none m-2" style={{ fontFamily: "Arial" }}>
-                                Patient
-                            </Link>
-                            <Outlet />
-                        </Button>
-                        <Button>
-                            <Link to="/Adminlogin" className="text-secondary text-decoration-none m-2" style={{ fontFamily: "Arial" }}>
-                                Admin
-                            </Link>
-                            <Outlet />
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-            </Box>
+        <>
+           <Header/>
             <Collapse in={open}>
                 <Alert size="small"
                     action={
@@ -244,7 +218,8 @@ export default function Home() {
                             justifyContent: "center",
                             marginTop: 3
                         }}>
-                            <FormControl onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit}>
+                            <FormControl>
                                 <Box sx={{ marginBottom: 1, marginTop: 1 }}>
                                     <TextField
                                         type="text"
@@ -280,6 +255,7 @@ export default function Home() {
                                     <a onClick={() => { settype("Forgetpassword") }} className="float-center">Forget password</a>
                                 </Box>
                             </FormControl>
+                            </form>
                         </Box>
                     </Box>
 
@@ -508,6 +484,6 @@ export default function Home() {
                         )
                     }
                 </Box>
-        </div >
+        </>
     );
 }

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
-import logo from '../assets/logo.png'
+import logo from '../assets/images/logo.png'
 export default function Patient() {
     const { id } = useParams();
     return (

@@ -2,15 +2,15 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import month1 from '../assets/vegetables.jpg'
-import month2 from '../assets/lemonginger.jpg'
-import month3 from '../assets/egg.jpg'
-import month4 from '../assets/beetroot.jpg'
-import month5 from '../assets/milk.jpg'
-import month6 from '../assets/fruits.jpg'
-import month7 from '../assets/fish.jpg'
-import month8 from '../assets/milkshakes.jpg'
-import month9 from '../assets/grains.jpg'
+import month1 from '../assets/images/vegetables.jpg'
+import month2 from '../assets/images/lemonginger.jpg'
+import month3 from '../assets/images/egg.jpg'
+import month4 from '../assets/images/beetroot.jpg'
+import month5 from '../assets/images/milk.jpg'
+import month6 from '../assets/images/fruits.jpg'
+import month7 from '../assets/images/fish.jpg'
+import month8 from '../assets/images/milkshakes.jpg'
+import month9 from '../assets/images/grains.jpg'
 import useMediaQuery from '@mui/material/useMediaQuery';
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',

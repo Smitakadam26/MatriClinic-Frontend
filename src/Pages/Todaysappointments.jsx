@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import {
     Button,
     Checkbox,
@@ -14,7 +11,7 @@ import {
 import { useParams } from "react-router-dom";
 import Appointments from "./Appointments";
 import Slide from '@mui/material/Slide';
-import wallpaper from '../assets/wallpaper.png'
+import wallpaper from '../assets/images/wallpaper.png'
 import CloseIcon from '@mui/icons-material/Close';
 import React
     from "react";

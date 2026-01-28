@@ -2,7 +2,7 @@ import { useState } from "react";
 import Doctorregister from "./Doctorregister";
 import Patientregister from "./Patientregister";
 import { Button } from "@mui/material";
-import wallpaper from '../assets/wallpaper.png'
+import wallpaper from '../assets/images/wallpaper.png'
 export default function Registration() {
     const [type, setType] = useState("Patient");
     return (

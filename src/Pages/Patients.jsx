@@ -7,10 +7,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import TableHead from '@mui/material/TableHead';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -22,24 +19,9 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 
-import bloodpresure from '../assets/icons8-pressure-16.png';
-import heartrate from '../assets/icons8-heartrate-16.png';
-import temp from '../assets/icons8-temperature-16.png';
-import weight from '../assets/icons8-weight-16.png';
-import movement from '../assets/icons8-movement-16.png';
-import HeightIcon from '@mui/icons-material/Height';
-import BloodtypeIcon from '@mui/icons-material/Bloodtype';
-import ControlCameraIcon from '@mui/icons-material/ControlCamera';
-import "../Home/Home.css"
-import DateRangeIcon from '@mui/icons-material/DateRange';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
+import "./Home.css"
 import {Grid,Box,Divider} from '@mui/material'
 import Typography from '@mui/material/Typography';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -146,9 +128,9 @@ export default function Patients() {
         navigate(`/Admin/${id}/Editpatient/` + Id)
     }
     const handleView = (Id) => {
-
         fetchpatient(Id)
         setdocumentopen(true);
+        setopen(true);
     }
     function handleSearchClick(searchVal) {
 
@@ -299,7 +281,7 @@ export default function Patients() {
 
                 </DialogContent>
                 <DialogActions>
-                    <Button className="text-white bg-secondary" onClick={() => { setdocumentopen(false) }}>Close</Button>
+                    <Button className="text-white bg-secondary" onClick={() => { setopen(false) }}>Close</Button>
                 </DialogActions>
             </Dialog>
             <Dialog
@@ -316,10 +298,8 @@ export default function Patients() {
                                 record.dateofvisit !== "undefined" && (
                                     <Grid item xs={12} key={index}>
 
-                                        {/* Appointment Card */}
                                         <Card elevation={3} sx={{ padding: 3, borderRadius: 3 }}>
 
-                                            {/* Appointment Date Header */}
                                             <Typography
                                                 variant="h6"
                                                 sx={{ fontWeight: 'bold', color: '#5a5a5a', mb: 2 }}
@@ -333,14 +313,12 @@ export default function Patients() {
 
                                             <Divider sx={{ mb: 3 }} />
 
-                                            {/* Appointment Details */}
                                             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
                                                 Appointment Details
                                             </Typography>
 
                                             <Grid container spacing={2}>
 
-                                                {/* Helper Row Component */}
                                                 {[
                                                     { label: "Month", value: record.month },
                                                     { label: "Week", value: record.week },
@@ -381,7 +359,6 @@ export default function Patients() {
 
                                             <Divider sx={{ my: 3 }} />
 
-                                            {/* Files Section */}
                                             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
                                                 Files & Reports
                                             </Typography>

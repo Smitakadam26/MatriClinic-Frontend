@@ -1,9 +1,9 @@
-import wallpushups from '../assets/wallpushups.webp'
-import sqauts from '../assets/squats.webp'
-import shoulderrotation from '../assets/shoulderrotation.jpg'
-import allfours from '../assets/All-fours.jpg'
-import legraises from '../assets/legraises.webp'
-import Supportedvsits from '../assets/Supportedv-sits.webp'
+import wallpushups from '../assets/images/wallpushups.webp'
+import sqauts from '../assets/images/squats.webp'
+import shoulderrotation from '../assets/images/shoulderrotation.jpg'
+import allfours from '../assets/images/All-fours.jpg'
+import legraises from '../assets/images/legraises.webp'
+import Supportedvsits from '../assets/images/Supportedv-sits.webp'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
