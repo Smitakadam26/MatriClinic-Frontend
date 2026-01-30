@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Button } from "@mui/material";
@@ -38,8 +38,7 @@ export default function Profile() {
     const handlelogout = () => {
         fetch(`https://matri-clinic-backend-tau.vercel.app/admin/logout`)
             .then((response) => {
-                console.log(response);
-                localStorage.removeItem("token")
+                localStorage.removeItem("id")
                 navigate('/')
             })
             .catch((err) => {

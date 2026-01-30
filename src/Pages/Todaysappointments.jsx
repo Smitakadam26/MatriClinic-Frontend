@@ -106,7 +106,6 @@ export default function Todaysappointments() {
         const data = appointments.find((item) => (
             item.identity.toString() === searchVal && item.isvisited === false
         ))
-        console.log(data)
         setappointment((prev) => ({
             ...prev,
             name: data.name,
@@ -119,7 +118,6 @@ export default function Todaysappointments() {
         }))
     }
     const fetchAvailability = async (date, Doctorid) => {
-        console.log(date, Doctorid)
         try {
             const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/availability?date=${date}&&Doctorid=${Doctorid}`);
             const data = await res.json();
@@ -136,7 +134,6 @@ export default function Todaysappointments() {
         }))
     };
     const handleChange = (id, ID) => {
-        console.log(id, ID)
         setPatientId(id);
         setappointmentID(ID);
         setOpen(true)
@@ -154,7 +151,6 @@ export default function Todaysappointments() {
         }
     }
     const handledate = (e, Doctorid) => {
-        console.log(Doctorid)
         if (!Doctorid) {
             alert("Patient is not selected")
         }
@@ -166,7 +162,6 @@ export default function Todaysappointments() {
 
     }
     const editappointmnt = () => {
-        console.log(appointment)
         fetch("https://matri-clinic-backend-tau.vercel.app/Appointments/" + appointment._id, {
             method: "put",
             headers: {
@@ -187,7 +182,6 @@ export default function Todaysappointments() {
             });
     }
     const bookappointmnt = async () => {
-        console.log(appointment);
         if (
             appointment.name &&
             appointment.mobileNumber &&
