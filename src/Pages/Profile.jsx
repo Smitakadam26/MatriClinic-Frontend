@@ -6,13 +6,12 @@ import { Button } from "@mui/material";
 import wallpaper from "../assets/images/wallpaper.png";
 
 export default function Profile() {
-    const { id } = useParams();
     const [admin, setadmin] = useState({});
     const navigate = useNavigate();
-    console.log(id)
+    const id = localStorage.getItem("id");
     const fetchadmin = async (id) => {
         try {
-            const res = await fetch(`http://localhost:8080/admin/` + id);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/admin/` + id);
             const data = await res.json();
             setadmin(data);
         }
@@ -28,7 +27,6 @@ export default function Profile() {
     const handleAvatarChange = (event) => {
         const file = event.target.files?.[0];
         if (file) {
-            // Read the file as a data URL
             const reader = new FileReader();
             reader.onload = () => {
                 setAvatarSrc(reader.result);

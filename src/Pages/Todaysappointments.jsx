@@ -85,7 +85,6 @@ export default function Todaysappointments() {
         try {
             const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/todaysappointments?date=${date}`);
             const data = await res.json();
-            console.log(data);
             settodaysappointments(data);
         }
         catch (err) {
@@ -96,7 +95,6 @@ export default function Todaysappointments() {
         try {
             const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments`);
             const data = await res.json();
-            console.log(data);
             setappointments(data);
         }
         catch (err) {

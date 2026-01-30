@@ -31,8 +31,7 @@ export default function Adminlogin() {
         })
         if (res.status === 200) {
             const data = await res.json();
-            const { token } = data;
-            localStorage.setItem("token", token);
+            localStorage.setItem("id",data.admin.id);
             navigate(`/Admin/${data.admin.id}`, { replace: true });
         }
         else if (res.status === 401) {
