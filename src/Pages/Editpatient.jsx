@@ -15,11 +15,9 @@ export default function Editpatient() {
 
 
     const fetchpatient = async (id) => {
-        console.log(id)
         try {
             let result = await fetch("https://matri-clinic-backend-tau.vercel.app/patients/" + id);
             result = await result.json();
-            console.log(result);
             setpatient(result);
             const isoDate = result.dateOfBirth;
             const date = new Date(isoDate);
@@ -48,7 +46,6 @@ export default function Editpatient() {
             body: JSON.stringify(patient),
         })
             .then((response) => {
-                console.log(response);
                 setOpen(true)
             })
             .catch((err) => {

@@ -18,7 +18,7 @@ import Exercise from "./Pages/Exercise";
 import Todaysappointments from './Pages/Todaysappointments'
 import Forgetpassword from "./Pages/Forgetpassword";
 import Appointments from "./Pages/PatientAppointments";
-import ProtectedRoute from "./Components/ProtectedRoute"
+import ProtectedRoute from "./components/ProtectedRoute"
 function App() {
   return (
     <BrowserRouter>

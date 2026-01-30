@@ -1,7 +1,7 @@
 import "./Home.css";
 import { Typography, Box} from "@mui/material";
 import wallpaper from '../assets/images/wallpaper.png'
-import Header from "../Components/Header";
+import Header from "../components/Header";
 export default function Home() {
   return (
     <>

@@ -40,10 +40,8 @@ export default function PatientProfile() {
 
     };
     const handlelogout = () => {
-
         fetch(`https://matri-clinic-backend-tau.vercel.app/patients/logout`)
             .then((response) => {
-                console.log(response);
                 logout();
                 navigate('/')
             })

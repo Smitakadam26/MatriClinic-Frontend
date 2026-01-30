@@ -8,7 +8,7 @@ import "./Home.css";
 import wallpaper from '../assets/images/wallpaper.png'
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import Header from "../Components/Header";
+import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
 export default function Home() {
     const [credentials, setCredentials] = useState({});
@@ -56,7 +56,6 @@ export default function Home() {
             })
             if (res.status === 200) {
                 const data = await res.json(); // parse JSON
-                console.log("Backend response:", data);
                 login(data.patient);
                 navigate(`/Patient/${data.patient.id}`, { replace: true });
             }

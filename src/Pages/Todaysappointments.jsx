@@ -301,8 +301,8 @@ export default function Todaysappointments() {
                             </tr>
                         </thead>
                         <tbody>
-                            {todaysAppointments.map((record, index) => (
-                                <tr className="bordered" >
+                            {todaysAppointments.map((record) => (
+                                <tr className="bordered" key={record._id}>
                                     <td>{record.name}</td>
                                     <td>{record.mobileNumber}</td>
                                     <td>{record.doctor}</td>

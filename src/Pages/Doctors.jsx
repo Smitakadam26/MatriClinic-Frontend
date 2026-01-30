@@ -90,11 +90,9 @@ export default function Doctors() {
         getusers();
     });
     const fetchDoctor = async (id) => {
-        console.log(id)
         try {
             let result = await fetch("https://matri-clinic-backend-tau.vercel.app/doctors/" + id);
             result = await result.json();
-            console.log(result);
             setDoctor(result);
         }
         catch (err) {
@@ -115,11 +113,9 @@ export default function Doctors() {
         setdoctors(filterBySearch);
     }
     const handleAppointments = async (Doctorid) => {
-        console.log(Doctorid)
         try {
             let result = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/doctorappointment/${Doctorid}`);
             result = await result.json();
-            console.log(result);
             setappointments(result);
             setOpenappointments(true);
         }
@@ -128,11 +124,9 @@ export default function Doctors() {
         }
     }
     const handlePatients = async (Doctorid) => {
-        console.log(Doctorid)
         try {
             let result = await fetch(`https://matri-clinic-backend-tau.vercel.app/patients/patientsappointsdoctor/${Doctorid}`);
             result = await result.json();
-            console.log(result);
             setpatients(result);
             setOpenpatientslist(true);
         }

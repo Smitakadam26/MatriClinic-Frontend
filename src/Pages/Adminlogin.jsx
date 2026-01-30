@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import "./Home.css";
 import wallpaper from '../assets/images/wallpaper.png'
-import Header from "../Components/Header";
+import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
 
 export default function Adminlogin() {
@@ -31,7 +31,6 @@ export default function Adminlogin() {
         })
         if (res.status === 200) {
             const data = await res.json();
-            console.log(data.admin);
             login(data.admin);
             navigate(`/Admin/${data.admin.id}`, { replace: true });
         }

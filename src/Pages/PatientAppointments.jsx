@@ -20,7 +20,6 @@ export default function Appointments() {
 
     const fixedDate = dayjs(dataDate);
     const fetchappointments = async (id) => {
-        console.log(id)
         try {
             let result = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`);
             result = await result.json();
