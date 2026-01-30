@@ -22,7 +22,7 @@ export default function Profile() {
     }
     useEffect(() => {
         fetchadmin(id);
-    }, [])
+    }, [id])
     const [avatarSrc, setAvatarSrc] = useState(undefined);
 
     const handleAvatarChange = (event) => {

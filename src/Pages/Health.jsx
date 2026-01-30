@@ -14,7 +14,7 @@ import {
     IconButton,
     Slide
 } from "@mui/material";
-
+import { useCallback } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import DateRangeIcon from "@mui/icons-material/DateRange";
@@ -26,53 +26,46 @@ import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import wallpaper from "../assets/images/wallpaper.png";
 
 const Transition = (props) => <Slide direction="up" {...props} />;
- const StatCard = ({ icon, label, value }) => (
-        <Box
-            sx={{
-                p: 2,
-                borderRadius: 3,
-                backgroundColor: "#ffffff",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
-                height: "100%",
-            }}
-        >
-            <Typography variant="caption" color="text.secondary">
-                {label}
-            </Typography>
-            <Typography variant="h6" fontWeight="bold">
-                {icon} {value}
-            </Typography>
-        </Box>
-    );
+const StatCard = ({ icon, label, value }) => (
+    <Box
+        sx={{
+            p: 2,
+            borderRadius: 3,
+            backgroundColor: "#ffffff",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+            height: "100%",
+        }}
+    >
+        <Typography variant="caption" color="text.secondary">
+            {label}
+        </Typography>
+        <Typography variant="h6" fontWeight="bold">
+            {icon} {value}
+        </Typography>
+    </Box>
+);
 export default function Health() {
     const { id } = useParams();
     const [appointments, setAppointments] = useState([]);
     const [admin, setAdmin] = useState([]);
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState("");
-   
 
-   
-
-    const fetchAppointments = async () => {
-        const res = await fetch(
-            `https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`
-        );
+    const fetchAppointments = useCallback(async () => {
+        const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`);
         setAppointments(await res.json());
-    };
+    }, [id]);
 
-    const fetchAdmin = async () => {
+    const fetchAdmin = useCallback(async () => {
         const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/admin`);
         setAdmin(await res.json());
-    };
- useEffect(() => {
+    }, []);
+
+    useEffect(() => {
         fetchAppointments();
         fetchAdmin();
-    }, []);
-    const openFile = (fileName) => {
-        setFile(fileName);
-        setOpen(true);
-    };
+    }, [fetchAppointments, fetchAdmin]);
+
 
     return (
         <Box
@@ -84,7 +77,7 @@ export default function Health() {
             }}
         >
             <Typography variant="h4" color="white" fontWeight="bold" mb={4}>
-               Health Records
+                Health Records
             </Typography>
 
             <Grid container spacing={4}>
@@ -125,12 +118,12 @@ export default function Health() {
                                     )}
                                     {r.bloodpresure && (
                                         <Grid item xs={6} sm={4}>
-                                            <StatCard  label="Blood Pressure" value={r.bloodpresure} />
+                                            <StatCard label="Blood Pressure" value={r.bloodpresure} />
                                         </Grid>
                                     )}
                                     {r.heartrate && (
                                         <Grid item xs={6} sm={4}>
-                                            <StatCard  label="Heart Rate" value={r.heartrate} />
+                                            <StatCard label="Heart Rate" value={r.heartrate} />
                                         </Grid>
                                     )}
                                     {r.bloodsugar && (
@@ -229,7 +222,7 @@ export default function Health() {
                                                             borderRadius: 3,
                                                             textTransform: "none",
                                                         }}
-                                                        onClick={() => openFile(f.file)}
+                                                        onClick={() => setFile(f.file)}
                                                     >
                                                         {f.label}
                                                     </Button>
@@ -257,8 +250,8 @@ export default function Health() {
                 </AppBar>
 
                 <iframe
-                   src={`https://matri-clinic-backend-tau.vercel.app/uploads/${file}`}
-
+                    src={`https://matri-clinic-backend-tau.vercel.app/uploads/${file}`}
+                    title="Doctor dashboard"
                     width="100%"
                     height="100%"
                     style={{ border: "none" }}

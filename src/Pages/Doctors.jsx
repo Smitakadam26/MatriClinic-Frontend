@@ -108,10 +108,10 @@ export default function Doctors() {
     function handleSearchClick(searchVal) {
 
         if (searchVal === "") { setdoctors(doctors); return; }
-        const filterBySearch = alldoctors.filter((item) => {
-            if (item.name.toLowerCase()
-                .includes(searchVal.toLowerCase())) { return item; }
-        })
+        const filterBySearch = alldoctors.filter(item =>
+            item.name.toLowerCase().includes(searchVal.toLowerCase())
+        );
+
         setdoctors(filterBySearch);
     }
     const handleAppointments = async (Doctorid) => {
@@ -144,7 +144,7 @@ export default function Doctors() {
         <div>
             <div className="container mt-2">
                 <div className="d-flex justify-content-between">
-                    <h1  style={{fontFamily:"Arial"}}>All Doctors</h1>
+                    <h1 style={{ fontFamily: "Arial" }}>All Doctors</h1>
                     <div className=''>
                         <Search className='d-flex border'>
 
@@ -245,7 +245,8 @@ export default function Doctors() {
                                         </tr>
                                         <tr>
                                             <td className='text-secondary'>Gender :</td>
-                                            <td>{Doctor.gender === 'F' && 'Female' || Doctor.gender === 'M' && 'Male'}</td>
+                                            <td>{Doctor.gender === 'F' ? 'Female' : Doctor.gender === 'M' ? 'Male' : ''}</td>
+
                                         </tr>
                                         <tr>
                                             <td className='text-secondary'>Nationality :</td>
@@ -330,7 +331,7 @@ export default function Doctors() {
                     <Button onClick={() => { setOpenpatientslist(false) }} className="text-white bg-secondary">Close</Button>
                 </DialogActions>
             </Dialog>
-             <Dialog
+            <Dialog
                 fullWidth={true}
                 maxWidth={'md'}
                 open={openappointments}

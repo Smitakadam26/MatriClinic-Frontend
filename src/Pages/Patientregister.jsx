@@ -264,7 +264,7 @@ export default function Patientregister() {
                                                     const name = text[0];
                                                     const id = text[1];
                                                     console.log(name,id);
-                                                    setState((prev)=>({...prev,["doctor"]:name,["Doctorid"]:id}))
+                                                    setState((prev)=>({...prev,doctor:name,Doctorid:id}))
                                                     setdoctor(name)
                                  }} 
                                 displayEmpty

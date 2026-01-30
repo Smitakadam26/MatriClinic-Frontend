@@ -24,7 +24,7 @@ export default function Editpatient() {
             const isoDate = result.dateOfBirth;
             const date = new Date(isoDate);
             const formatted = date.toISOString().split("T")[0];
-            setpatient((prev) => ({ ...prev, ["dateOfBirth"]: formatted }))
+            setpatient((prev) => ({ ...prev, dateOfBirth: formatted }))
         }
         catch (err) {
             console.error("Error", err)

@@ -8,7 +8,6 @@ import {
     DialogTitle,
     IconButton
 } from "@mui/material";
-import { useParams } from "react-router-dom";
 import Appointments from "./Appointments";
 import Slide from '@mui/material/Slide';
 import wallpaper from '../assets/images/wallpaper.png'
@@ -56,7 +55,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 export default function Todaysappointments() {
-    const { id } = useParams();
     const [slots, setslots] = useState([]);
     const [todaysAppointments, settodaysappointments] = useState([]);
     const [appointments, setappointments] = useState([]);
@@ -113,13 +111,13 @@ export default function Todaysappointments() {
         console.log(data)
         setappointment((prev) => ({
             ...prev,
-            ["name"]: data.name,
-            ["mobileNumber"]: data.mobileNumber,
-            ["doctor"]: data.doctor,
-            ["Doctorid"]: data.Doctorid,
-            ["date"]: data.date,
-            ["time"]: data.time,
-            ["_id"]: data._id
+            name: data.name,
+            mobileNumber: data.mobileNumber,
+            doctor: data.doctor,
+            Doctorid: data.Doctorid,
+            date: data.date,
+            time: data.time,
+            _id: data._id
         }))
     }
     const fetchAvailability = async (date, Doctorid) => {
@@ -255,7 +253,7 @@ export default function Todaysappointments() {
     }
     useEffect(() => {
         const today = new Date();
-        const formatted = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
+        const formatted = today.toISOString().split('T')[0]; 
         setcurrentdate(formatted);
         fetchtodaysappointments(formatted);
         fetchappointments();
@@ -269,13 +267,13 @@ export default function Todaysappointments() {
         ))
         setappointment((prev) => ({
             ...prev,
-            ["name"]: data.name,
-            ["mobileNumber"]: data.mobileNumber,
-            ["doctor"]: data.doctor,
-            ["Doctorid"]: data.Doctorid,
-            ["identity"]: data.identity,
-            ["isvisited"]: false,
-            ["Patient_Id"]: data._id
+            name: data.name,
+            mobileNumber: data.mobileNumber,
+            doctor: data.doctor,
+            Doctorid: data.Doctorid,
+            identity: data.identity,
+            isvisited: false,
+            Patient_Id: data._id
         }))
     }
     return (
@@ -421,7 +419,7 @@ export default function Todaysappointments() {
                             <label className="form-label w-0 p-2" placeholder="Name">Slots : </label>
                             <span className="d-flex gap-3 p-2">
                                 {slots.map((time) => (
-                                    <Button onClick={() => { setappointment({ ...appointment, ["time"]: time }) }}>
+                                    <Button onClick={() => { setappointment({ ...appointment, time: time }) }}>
                                         {time}
                                     </Button>
                                 ))}
@@ -514,7 +512,7 @@ export default function Todaysappointments() {
                             <label className="form-label w-0 p-2" placeholder="Name">Slots : </label>
                             <span className="d-flex gap-3 p-2">
                                 {slots.map((time) => (
-                                    <Button onClick={() => { setappointment({ ...appointment, ["time"]: time }) }}>
+                                    <Button onClick={() => { setappointment({ ...appointment, time: time }) }}>
                                         {time}
                                     </Button>
                                 ))}
@@ -792,8 +790,7 @@ export default function Todaysappointments() {
                                                 name="ultrasonicreportType"
                                                 value="Growth scan"
                                                 checked={appointment.ultrasonicreportType === "Growth scan"}
-                                                onChange={(e) => ({ ...appointment, [e.target.name]: e.target.value },
-                                                    console.log(e.target.value))
+                                                onChange={(e) => ({ ...appointment, [e.target.name]: e.target.value })
                                                 }
                                             />
                                             <label className="form-check-label" >
@@ -834,7 +831,7 @@ export default function Todaysappointments() {
                             <label className="form-label w-0 p-2" placeholder="Name">Slots : </label>
                             <span className="d-flex gap-3 p-2">
                                 {slots.map((time) => (
-                                    <Button onClick={() => { setappointment({ ...appointment, ["time"]: time }) }}>
+                                    <Button onClick={() => { setappointment({ ...appointment,time: time }) }}>
                                         {time}
                                     </Button>
                                 ))}

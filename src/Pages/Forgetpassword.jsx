@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import { useState } from "react"
 import { useParams } from "react-router-dom";
 import { Button } from "@mui/material"
@@ -14,9 +14,6 @@ export default function Forgetpassword() {
     const handleSubmit = () => {
         console.log(credentials);
     }
-    useEffect(() => {
-        console.log(id, token)
-    }, [])
     const handleReset = async () => {
         console.log(credentials);
         const res = await fetch(`http://localhost:8080/patients/resetpassword/${id}/${token}`, {

@@ -1,5 +1,5 @@
 import "./Home.css";
-import { Button, Box, Typography, Alert, FormControl, Select,Grid, TextField } from "@mui/material";
+import { Button, Box, Typography, Alert, FormControl, Select, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuItem from '@mui/material/MenuItem';
@@ -25,8 +25,8 @@ export default function Home() {
         setCredentials({ ...credentials, [name]: value });
         setCredentials((prev) => ({
             ...prev,
-            ["date"]: null,
-            ["time"]: null
+            date: null,
+            time: null
         }))
         setslots([]);
     };
@@ -167,7 +167,7 @@ export default function Home() {
     }, [])
     return (
         <>
-           <Header/>
+            <Header />
             <Collapse in={open}>
                 <Alert size="small"
                     action={
@@ -219,42 +219,56 @@ export default function Home() {
                             marginTop: 3
                         }}>
                             <form onSubmit={handleSubmit}>
-                            <FormControl>
-                                <Box sx={{ marginBottom: 1, marginTop: 1 }}>
-                                    <TextField
-                                        type="text"
-                                        placeholder="Enter Email"
-                                        name="email"
-                                        value={credentials.email}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        fullWidth
-                                    />
-                                </Box>
-                                <Box sx={{ marginBottom: 1, marginTop: 1 }}>
-                                    <TextField
-                                        type="password"
-                                        placeholder="Enter Password"
-                                        name="password"
-                                        value={credentials.password}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        fullWidth
-                                    />
-                                </Box>
-                                {error && (
-                                    <Alert severity="error" style={{ marginTop: "10px" }}>
-                                        {error}
-                                    </Alert>
-                                )}
-                                <Button type="submit" sx={{ backgroundColor: "#46505A", marginTop: 4, marginBottom: 3, color: "white" }}>
-                                    Login
-                                </Button>
-                                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <a onClick={() => { settype("signup") }} className="float-center">Register</a>
-                                    <a onClick={() => { settype("Forgetpassword") }} className="float-center">Forget password</a>
-                                </Box>
-                            </FormControl>
+                                <FormControl>
+                                    <Box sx={{ marginBottom: 1, marginTop: 1 }}>
+                                        <TextField
+                                            type="text"
+                                            placeholder="Enter Email"
+                                            name="email"
+                                            value={credentials.email}
+                                            onChange={handleChange}
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Box>
+                                    <Box sx={{ marginBottom: 1, marginTop: 1 }}>
+                                        <TextField
+                                            type="password"
+                                            placeholder="Enter Password"
+                                            name="password"
+                                            value={credentials.password}
+                                            onChange={handleChange}
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Box>
+                                    {error && (
+                                        <Alert severity="error" style={{ marginTop: "10px" }}>
+                                            {error}
+                                        </Alert>
+                                    )}
+                                    <Button type="submit" sx={{ backgroundColor: "#46505A", marginTop: 4, marginBottom: 3, color: "white" }}>
+                                        Login
+                                    </Button>
+                                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                        <Button
+                                        type="button"
+                                        onClick={() => settype("signup")}
+                                        className="float-center"
+                                    >
+                                        Register
+                                    </  Button>
+
+                                        <Button
+                                            type="button"
+                                            onClick={() => settype("Forgetpassword")}
+                                            className="float-center"
+                                        >
+                                            Forget password
+                                        </Button>
+
+                                    </Box>
+                                </FormControl>
                             </form>
                         </Box>
                     </Box>
@@ -268,222 +282,222 @@ export default function Home() {
                 }} className="signup">
                     <Box sx={{ marginTop: 1 }}>
                         <Typography varient="h1" component="h1" sx={{ textAlign: "center", fontSize: "6vh" }}>Register As Patient</Typography>
-                         <Box
-                        component="form"
-                        onSubmit={handleSubmit}
-                        sx={{ mt: 1, p: 2 }}
-                    >
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Name"
-                                    name="name"
-                                    value={credentials.name}
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    type="password"
-                                    label="Password"
-                                    name="password"
-                                    value={credentials.password}
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    type="email"
-                                    label="Email"
-                                    name="email"
-                                    value={credentials.email || ""}
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    type="number"
-                                    label="Mobile Number"
-                                    name="mobileNumber"
-                                    value={credentials.mobileNumber}
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    type="number"
-                                    label="Aadhar Number"
-                                    name="identity"
-                                    value={credentials.identity}
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <FormControl fullWidth>
-                                    <Select
-                                        displayEmpty
-                                        value={credentials.doctor}
-                                        onChange={(e) => {
-                                            const text = e.target.value.split("and");
-                                            const name = text[0];
-                                            const id = text[1];
-
-                                            setCredentials((prev) => ({
-                                                ...prev,
-                                                doctor: name,
-                                                Doctorid: id,
-                                                date: null,
-                                                time: null
-                                            }));
-                                            setdoctor(id);
-                                            setslots([]);
-                                        }}
-                                    >
-                                        <MenuItem value="">
-                                            <em>Click To Choose</em>
-                                        </MenuItem>
-                                        {doctors.map((doctor) => (
-                                            <MenuItem
-                                                key={doctor._id}
-                                                value={`${doctor.name}and${doctor._id}`}
-                                            >
-                                                {doctor.name}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    type="date"
-                                    label="Appointment Date"
-                                    InputLabelProps={{ shrink: true }}
-                                    value={credentials.date || ""}
-                                    onChange={handledate}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Selected Time"
-                                    value={credentials.time || ""}
-                                    InputProps={{ readOnly: true }}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography sx={{ mb: 1 }}>Slots:</Typography>
-                                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-                                    {slots.map((time) => (
-                                        <Button
-                                            key={time}
-                                            variant="outlined"
-                                            onClick={() =>
-                                                setCredentials({ ...credentials, time })
-                                            }
-                                        >
-                                            {time}
-                                        </Button>
-                                    ))}
-                                </Box>
-                            </Grid>
-
-                            {error && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">{error}</Alert>
+                        <Box
+                            component="form"
+                            onSubmit={handleSubmit}
+                            sx={{ mt: 1, p: 2 }}
+                        >
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        fullWidth
+                                        label="Name"
+                                        name="name"
+                                        value={credentials.name}
+                                        onChange={handleChange}
+                                    />
                                 </Grid>
-                            )}
-
-                            <Grid item xs={12}>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    fullWidth
-                                    sx={{ mt: 2 }}
-                                >
-                                    Signup
-                                </Button>
-                            </Grid>
-                            <Grid item xs={12} textAlign="center">
-                                <Button
-                                    variant="text"
-                                    onClick={() => settype("login")}
-                                >
-                                    Login
-                                </Button>
-                            </Grid>
-
-                        </Grid>
-                    </Box>
-                    </Box>
-                   </Box>
-                    }
-                    {
-                        type === "Forgetpassword" && (
-                            <Box
-                                sx={{
-                                    backgroundColor: "white",
-                                    textAlign: "center",
-                                    p: 3,
-                                    borderRadius: 2,
-                                    maxWidth: 400,
-                                    mx: "auto",
-                                }}
-                            >
-                                <Typography variant="h4" sx={{ mt: 3 }}>
-                                    Forget Password
-                                </Typography>
-
-                                <Box
-                                    component="form"
-                                    onSubmit={handleSubmit}
-                                    sx={{ mt: 3 }}
-                                >
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        fullWidth
+                                        type="password"
+                                        label="Password"
+                                        name="password"
+                                        value={credentials.password}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
                                     <TextField
                                         fullWidth
                                         type="email"
                                         label="Email"
-                                        placeholder="Enter Email"
                                         name="email"
-                                        value={email.email || ""}
-                                        onChange={(e) => {
-                                            setemail({ ...email, [e.target.name]: e.target.value });
-                                            seterror();
-                                        }}
-                                        sx={{ mb: 2 }}
+                                        value={credentials.email || ""}
+                                        onChange={handleChange}
                                     />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        fullWidth
+                                        type="number"
+                                        label="Mobile Number"
+                                        name="mobileNumber"
+                                        value={credentials.mobileNumber}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        fullWidth
+                                        type="number"
+                                        label="Aadhar Number"
+                                        name="identity"
+                                        value={credentials.identity}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <FormControl fullWidth>
+                                        <Select
+                                            displayEmpty
+                                            value={credentials.doctor}
+                                            onChange={(e) => {
+                                                const text = e.target.value.split("and");
+                                                const name = text[0];
+                                                const id = text[1];
 
-                                    {error && (
-                                        <Alert severity="error" sx={{ mb: 2 }}>
-                                            {error}
-                                        </Alert>
-                                    )}
+                                                setCredentials((prev) => ({
+                                                    ...prev,
+                                                    doctor: name,
+                                                    Doctorid: id,
+                                                    date: null,
+                                                    time: null
+                                                }));
+                                                setdoctor(id);
+                                                setslots([]);
+                                            }}
+                                        >
+                                            <MenuItem value="">
+                                                <em>Click To Choose</em>
+                                            </MenuItem>
+                                            {doctors.map((doctor) => (
+                                                <MenuItem
+                                                    key={doctor._id}
+                                                    value={`${doctor.name}and${doctor._id}`}
+                                                >
+                                                    {doctor.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        fullWidth
+                                        type="date"
+                                        label="Appointment Date"
+                                        InputLabelProps={{ shrink: true }}
+                                        value={credentials.date || ""}
+                                        onChange={handledate}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        fullWidth
+                                        label="Selected Time"
+                                        value={credentials.time || ""}
+                                        InputProps={{ readOnly: true }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography sx={{ mb: 1 }}>Slots:</Typography>
+                                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                                        {slots.map((time) => (
+                                            <Button
+                                                key={time}
+                                                variant="outlined"
+                                                onClick={() =>
+                                                    setCredentials({ ...credentials, time })
+                                                }
+                                            >
+                                                {time}
+                                            </Button>
+                                        ))}
+                                    </Box>
+                                </Grid>
 
+                                {error && (
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">{error}</Alert>
+                                    </Grid>
+                                )}
+
+                                <Grid item xs={12}>
                                     <Button
                                         type="submit"
                                         variant="contained"
                                         fullWidth
-                                        sx={{ mt: 2, mb: 2 }}
+                                        sx={{ mt: 2 }}
                                     >
-                                        Submit
+                                        Signup
                                     </Button>
-
+                                </Grid>
+                                <Grid item xs={12} textAlign="center">
                                     <Button
                                         variant="text"
                                         onClick={() => settype("login")}
                                     >
                                         Login
                                     </Button>
-                                </Box>
-                            </Box>
-                        )
-                    }
+                                </Grid>
+
+                            </Grid>
+                        </Box>
+                    </Box>
                 </Box>
+                }
+                {
+                    type === "Forgetpassword" && (
+                        <Box
+                            sx={{
+                                backgroundColor: "white",
+                                textAlign: "center",
+                                p: 3,
+                                borderRadius: 2,
+                                maxWidth: 400,
+                                mx: "auto",
+                            }}
+                        >
+                            <Typography variant="h4" sx={{ mt: 3 }}>
+                                Forget Password
+                            </Typography>
+
+                            <Box
+                                component="form"
+                                onSubmit={handleSubmit}
+                                sx={{ mt: 3 }}
+                            >
+                                <TextField
+                                    fullWidth
+                                    type="email"
+                                    label="Email"
+                                    placeholder="Enter Email"
+                                    name="email"
+                                    value={email.email || ""}
+                                    onChange={(e) => {
+                                        setemail({ ...email, [e.target.name]: e.target.value });
+                                        seterror();
+                                    }}
+                                    sx={{ mb: 2 }}
+                                />
+
+                                {error && (
+                                    <Alert severity="error" sx={{ mb: 2 }}>
+                                        {error}
+                                    </Alert>
+                                )}
+
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    fullWidth
+                                    sx={{ mt: 2, mb: 2 }}
+                                >
+                                    Submit
+                                </Button>
+
+                                <Button
+                                    variant="text"
+                                    onClick={() => settype("login")}
+                                >
+                                    Login
+                                </Button>
+                            </Box>
+                        </Box>
+                    )
+                }
+            </Box>
         </>
     );
 }

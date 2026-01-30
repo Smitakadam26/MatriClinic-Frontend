@@ -25,9 +25,8 @@ export default function Appointments() {
             let result = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`);
             result = await result.json();
             setappointments(result);
-            const filterBySearch = result.filter((item) => {
-                if (item.isvisited === false) { return item; }
-            })
+            const filterBySearch = result.filter(item => item.isvisited === false);
+
             setdataDate(filterBySearch[0].date)
             
         }

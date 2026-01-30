@@ -70,8 +70,6 @@ export default function Patients() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [appointments, setappointments] = useState([]);
     const [openappointments, setopenappointments] = useState(false);
-    const [selectedRecord, setSelectedRecord] = useState();
-    const [documentopen, setdocumentopen] = useState(false);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -110,7 +108,6 @@ export default function Patients() {
     }
     useEffect(() => {
         getusers();
-        console.log(patients)
     }, []);
     const fetchpatient = async (id) => {
         console.log(id)
@@ -129,16 +126,14 @@ export default function Patients() {
     }
     const handleView = (Id) => {
         fetchpatient(Id)
-        setdocumentopen(true);
         setopen(true);
     }
     function handleSearchClick(searchVal) {
 
         if (searchVal === "") { setpatients(patients); return; }
-        const filterBySearch = allpatients.filter((item) => {
-            if (item.name.toLowerCase()
-                .includes(searchVal.toLowerCase())) { return item; }
-        })
+        const filterBySearch = allpatients.filter(item =>
+            item.name.toLowerCase().includes(searchVal.toLowerCase())
+        );
         console.log(filterBySearch)
         setpatients(filterBySearch);
     }
@@ -288,7 +283,7 @@ export default function Patients() {
                 fullWidth={true}
                 maxWidth={'lg'}
                 open={openappointments}
-                onClose={() => { setdocumentopen(false) }}
+                onClose={() => { setappointments(false) }}
             >
                 <DialogTitle>Appointments Details</DialogTitle>
                 <DialogContent>
@@ -387,7 +382,7 @@ export default function Patients() {
                                                             {item.label}
                                                         </Typography>
 
-                                                        <Button
+                                                        {/*<Button
                                                             size="small"
                                                             variant="contained"
                                                             onClick={() => {
@@ -396,7 +391,7 @@ export default function Patients() {
                                                             }}
                                                         >
                                                             View File
-                                                        </Button>
+                                                        </Button>*/}
                                                     </Box>
                                                 )
                                             ))}

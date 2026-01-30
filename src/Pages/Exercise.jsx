@@ -119,7 +119,7 @@ export default function Exercise() {
                             <h1>{exercise.name} : </h1>
                             <div className='d-flex flex-wrap mt-3 p-2'>
                                 <p className='p-2'>{exercise.description}</p>
-                                <img src={exercise.images} />
+                                <img src={exercise.images} alt='exercise' />
                             </div>
                             {exercise.name === "Wall pushups" &&<div>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/Zd990gYvDvA?si=u-Yr2Zrp5aADGFO-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

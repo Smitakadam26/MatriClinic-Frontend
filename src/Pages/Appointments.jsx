@@ -59,8 +59,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
         const formatted = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
         setCurrentdate(formatted);
         getpatient(patient_Id);
-        console.log(patient_Id, appointmentID)
-    }, []);
+    }, [patient_Id,appointmentID]);
     const handleSubmit = async () => {
         console.log(appointmt)
         if (
