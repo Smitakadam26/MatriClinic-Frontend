@@ -16,7 +16,7 @@ export default function Forgetpassword() {
     }
     const handleReset = async () => {
         console.log(credentials);
-        const res = await fetch(`http://localhost:8080/patients/resetpassword/${id}/${token}`, {
+        const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/patients/resetpassword/${id}/${token}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

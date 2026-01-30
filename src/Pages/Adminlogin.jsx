@@ -8,13 +8,13 @@ import Alert from '@mui/material/Alert';
 import "./Home.css";
 import wallpaper from '../assets/images/wallpaper.png'
 import Header from "../Components/Header";
-
+import { useAuth } from "../context/AuthContext";
 
 export default function Adminlogin() {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const [error, seterror] = useState("");
     const navigate = useNavigate();
-
+    const {login} = useAuth();
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value });
@@ -31,7 +31,8 @@ export default function Adminlogin() {
         })
         if (res.status === 200) {
             const data = await res.json();
-            localStorage.setItem("id",data.admin.id);
+            console.log(data.admin);
+            login(data.admin);
             navigate(`/Admin/${data.admin.id}`, { replace: true });
         }
         else if (res.status === 401) {

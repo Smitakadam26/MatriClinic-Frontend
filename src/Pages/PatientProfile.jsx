@@ -1,18 +1,21 @@
 
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Button } from "@mui/material";
-import wallpaper from '../assets/images/wallpaper.png'
+import wallpaper from '../assets/images/wallpaper.png';
+import { useAuth } from "../context/AuthContext";
+
 
 export default function PatientProfile() {
-    const { id } = useParams();
     const [Patient, setPatient] = useState({});
     const navigate = useNavigate();
+    const {user,logout} = useAuth();
+    const id = user.id;
     const fetchPatient = async (id) => {
         try {
-            const res = await fetch(`http://localhost:8080/patients/` + id);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/patients/` + id);
             const data = await res.json();
             setPatient(data);
         }
@@ -41,7 +44,7 @@ export default function PatientProfile() {
         fetch(`https://matri-clinic-backend-tau.vercel.app/patients/logout`)
             .then((response) => {
                 console.log(response);
-                localStorage.removeItem("token")
+                logout();
                 navigate('/')
             })
             .catch((err) => {

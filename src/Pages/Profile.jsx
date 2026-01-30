@@ -4,11 +4,14 @@ import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Button } from "@mui/material";
 import wallpaper from "../assets/images/wallpaper.png";
+import { useAuth } from "../context/AuthContext";
 
 export default function Profile() {
     const [admin, setadmin] = useState({});
     const navigate = useNavigate();
-    const id = localStorage.getItem("id");
+    const {user,logout} = useAuth();
+    
+    const id = user.id;
     const fetchadmin = async (id) => {
         try {
             const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/admin/` + id);
@@ -38,7 +41,7 @@ export default function Profile() {
     const handlelogout = () => {
         fetch(`https://matri-clinic-backend-tau.vercel.app/admin/logout`)
             .then((response) => {
-                localStorage.removeItem("id")
+                logout();
                 navigate('/')
             })
             .catch((err) => {

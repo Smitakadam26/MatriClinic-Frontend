@@ -9,7 +9,7 @@ import wallpaper from '../assets/images/wallpaper.png'
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Header from "../Components/Header";
-
+import { useAuth } from "../context/AuthContext";
 export default function Home() {
     const [credentials, setCredentials] = useState({});
     const [type, settype] = useState("login");
@@ -20,6 +20,7 @@ export default function Home() {
     const [open, setOpen] = useState(false);
     const [slots, setslots] = useState([]);
     const navigate = useNavigate();
+    const {login} = useAuth();
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value });
@@ -32,7 +33,7 @@ export default function Home() {
     };
     const getdoctors = async () => {
         try {
-            let result = await fetch("http://localhost:8080/doctors");
+            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/doctors");
             result = await result.json();
             setdoctors(result);
         } catch (error) {
@@ -45,9 +46,8 @@ export default function Home() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(credentials)
         if (type === "login") {
-            const res = await fetch("http://localhost:8080/patients/login", {
+            const res = await fetch("https://matri-clinic-backend-tau.vercel.app/patients/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -57,8 +57,7 @@ export default function Home() {
             if (res.status === 200) {
                 const data = await res.json(); // parse JSON
                 console.log("Backend response:", data);
-                const { token } = data;
-                localStorage.setItem("token", token);
+                login(data.patient);
                 navigate(`/Patient/${data.patient.id}`, { replace: true });
             }
             else if (res.status === 401) {
@@ -70,7 +69,7 @@ export default function Home() {
         }
         else if (type === "Forgetpassword") {
             console.log(email)
-            const res = await fetch("http://localhost:8080/patients/forgetpassword", {
+            const res = await fetch("https://matri-clinic-backend-tau.vercel.app/patients/forgetpassword", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -100,7 +99,7 @@ export default function Home() {
                 credentials.date &&
                 credentials.time
             ) {
-                const res = await fetch("http://localhost:8080/patients", {
+                const res = await fetch("https://matri-clinic-backend-tau.vercel.app/patients", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -123,7 +122,7 @@ export default function Home() {
                     formData.append("identity", credentials.identity);
                     formData.append("isvisited", false);
                     try {
-                        const res = await fetch('http://localhost:8080/Appointments', {
+                        const res = await fetch('https://matri-clinic-backend-tau.vercel.app/Appointments', {
                             method: 'POST',
                             body: formData,
                         });
@@ -144,7 +143,7 @@ export default function Home() {
     const fetchAvailability = async (date, Doctorid) => {
         console.log(date, Doctorid)
         try {
-            const res = await fetch(`http://localhost:8080/Appointments/availability?date=${date}&&Doctorid=${Doctorid}`);
+            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/availability?date=${date}&&Doctorid=${Doctorid}`);
             const data = await res.json();
             setslots(data.availableSlots)
         }
@@ -157,7 +156,6 @@ export default function Home() {
             alert("Patient is not selected")
         }
         else {
-            console.log(e.target.name, e.target.value, doctor)
             fetchAvailability(e.target.value, doctor)
             setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value, "time": " " }))
         }
