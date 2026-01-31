@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
+import { editPatient } from "../services/api";
 
 export default function Editpatient() {
     const { id } = useParams();
@@ -38,13 +39,7 @@ export default function Editpatient() {
     }
     const handleEdit = (id, newState) => {
 
-        fetch("https://matri-clinic-backend-tau.vercel.app/patients/" + id, {
-            method: "put",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(patient),
-        })
+        editPatient(id,patient)
             .then((response) => {
                 setOpen(true)
             })

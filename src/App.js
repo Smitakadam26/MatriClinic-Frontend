@@ -1,23 +1,23 @@
 import './App.css';
 import "./index.css";
-import Home from "./Pages/Home";
-import Patientlogin from "./Pages/Patientlogin";
-import Admin from "./Pages/Admin";
+import Home from "./pages/Home";
+import Patientlogin from "./pages/Patientlogin";
+import Admin from "./pages/Admin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Profile from "./Pages/Profile";
-import Patients from "./Pages/Patients";
-import Doctors from "./Pages/Doctors";
-import Registration from "./Pages/Registration";
-import Adminlogin from "./Pages/Adminlogin";
-import Editpatient from "./Pages/Editpatient";
-import Patient from "./Pages/Patient";
-import Health from "./Pages/Health";
-import PatientProfile from "./Pages/PatientProfile";
-import Food from "./Pages/Food";
-import Exercise from "./Pages/Exercise";
-import Todaysappointments from './Pages/Todaysappointments'
-import Forgetpassword from "./Pages/Forgetpassword";
-import Appointments from "./Pages/PatientAppointments";
+import Profile from "./pages/Profile";
+import Patients from "./pages/Patients";
+import Doctors from "./pages/Doctors";
+import Registration from "./pages/Registration";
+import Adminlogin from "./pages/Adminlogin";
+import Editpatient from "./pages/Editpatient";
+import Patient from "./pages/Patient";
+import Health from "./pages/Health";
+import PatientProfile from "./pages/PatientProfile";
+import Food from "./pages/Food";
+import Exercise from "./pages/Exercise";
+import Todaysappointments from './pages/Todaysappointments'
+import Forgetpassword from "./pages/Forgetpassword";
+import Appointments from "./pages/PatientAppointments";
 import ProtectedRoute from "./components/ProtectedRoute"
 function App() {
   return (

@@ -22,10 +22,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTimeFilled";
 import HeightIcon from "@mui/icons-material/Height";
 import BloodtypeIcon from "@mui/icons-material/Bloodtype";
 import ControlCameraIcon from "@mui/icons-material/ControlCamera";
-
+import { Transition } from "../components/SearchBar";
 import wallpaper from "../assets/images/wallpaper.png";
-
-const Transition = (props) => <Slide direction="up" {...props} />;
 const StatCard = ({ icon, label, value }) => (
     <Box
         sx={{

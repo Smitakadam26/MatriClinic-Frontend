@@ -1,6 +1,5 @@
-import { styled } from '@mui/material/styles';
+import { Item } from '../components/SearchBar';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import month1 from '../assets/images/vegetables.jpg'
 import month2 from '../assets/images/lemonginger.jpg'
@@ -12,16 +11,7 @@ import month7 from '../assets/images/fish.jpg'
 import month8 from '../assets/images/milkshakes.jpg'
 import month9 from '../assets/images/grains.jpg'
 import useMediaQuery from '@mui/material/useMediaQuery';
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: (theme.vars ?? theme).palette.text.secondary,
-    ...theme.applyStyles('dark', {
-        backgroundColor: '#1A2027',
-    }),
-}));
+
 export default function Food() {
     const data = [
         {

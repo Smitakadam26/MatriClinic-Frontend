@@ -11,11 +11,7 @@ export default function Forgetpassword() {
     const { id, token } = useParams();
     const [credentials, setCredentials] = useState({});
     const [open, setOpen] = useState(false);
-    const handleSubmit = () => {
-        console.log(credentials);
-    }
     const handleReset = async () => {
-        console.log(credentials);
         const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/patients/resetpassword/${id}/${token}`, {
             method: "POST",
             headers: {
@@ -54,7 +50,7 @@ export default function Forgetpassword() {
                         </Collapse>
                         <h1 className="mx-auto text-center">Reset Password</h1>
                         <div className="d-grid gap-2 mx-auto justify-content-center mt-2">
-                            <form onSubmit={handleSubmit} className="p-3">
+                            <form onSubmit={handleReset} className="p-3">
                                 <div className="mb-2 mt-3">
                                     <input
                                         type="email"

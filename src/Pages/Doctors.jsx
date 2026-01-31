@@ -12,38 +12,9 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
-import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    width: '100%',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(1)})`,
-        transition: theme.transitions.create('width'),
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '16ch',
-            },
-        },
-    },
-}));
+import { Search,StyledInputBase } from '../components/SearchBar';
+import { getDoctors } from '../services/api';
 
 export default function Doctors() {
     const columns = [
@@ -74,8 +45,7 @@ export default function Doctors() {
     };
     const getusers = async () => {
         try {
-            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/doctors");
-            result = await result.json();
+            let result = await getDoctors();
             setdoctors(result);
             setalldoctors(result);
         } catch (error) {

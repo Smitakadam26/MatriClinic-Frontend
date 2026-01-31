@@ -3,19 +3,20 @@ import BasicInfoSection from "./BasicInfoSection";
 import AppointmentsSection from '../components/AppointmentSection'
 import NextAppointmentSection from "./NextAppointmentSection";
 import TestResultsSection from "./TestResultSection";
-export default function Appointments({ patient_Id, appointmentID }) {
+import { getPatient, fetchDoctorAvailability } from "../services/api";
+
+export default function Appointments({ patient_Id, appointmentID,setOpen }) {
     const [patient, setPatient] = useState({});
     const [appointmt, setappointmt] = useState({});
     const [slots, setslots] = useState([]);
     const [Time, setTime] = useState();
     const [date, setdate] = useState();
     const [currentdate, setCurrentdate] = useState();
-    const handleFileChange = (e) => {
-        setappointmt((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.files[0]
-        }))
-    };
+    const [bloodTestFile, setBloodTestFile] = useState();
+    const [urineTestFile, setUrineTestFile] = useState();
+    const [labTestFile, setLabTestFile] = useState();
+    const [ultraSonicReport, setUltraSonicReport] = useState();
+    const [stressTestFile, setStressTestFile] = useState();
     const VitalSignsfields = [
         { label: "Fundal Height", name: "fundalHeight" },
         { label: "Fetal Heart Rate", name: "heartrate" },
@@ -25,16 +26,14 @@ export default function Appointments({ patient_Id, appointmentID }) {
         { label: "Vaccine", name: "vaccine" },
     ];
     const AbdominalExamfields = [
-  { label: "Blood Pressure", name: "bloodpresure" },
-  { label: "Blood Sugar", name: "bloodsugar" },
-  { label: "Weight", name: "weight", type: "number" },
-  { label: "Temperature", name: "temperature" },
-];
+        { label: "Blood Pressure", name: "bloodpresure" },
+        { label: "Blood Sugar", name: "bloodsugar" },
+        { label: "Weight", name: "weight", type: "number" },
+        { label: "Temperature", name: "temperature" },
+    ];
     const getpatient = async (id) => {
         try {
-            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/patients/" + id);
-            result = await result.json();
-            console.log(result);
+            let result = await getPatient(id);
             setPatient(result);
             const isoDate = result.dateOfBirth;
             const date = new Date(isoDate);
@@ -47,11 +46,9 @@ export default function Appointments({ patient_Id, appointmentID }) {
     }
     const fetchAvailability = async (date) => {
         try {
-            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/availability?date=${date}&&Doctorid=${patient.Doctorid}`);
-            const data = await res.json();
+            const data = await fetchDoctorAvailability(date, patient.Doctorid);
             setdate(data.date)
             setslots(data.availableSlots)
-            console.log(data.availableSlots);
             setappointmt((prev) => ({
                 ...prev,
                 name: patient.name,
@@ -71,12 +68,12 @@ export default function Appointments({ patient_Id, appointmentID }) {
     }
     useEffect(() => {
         const today = new Date();
-        const formatted = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
+        const formatted = today.toISOString().split('T')[0];
         setCurrentdate(formatted);
         getpatient(patient_Id);
     }, [patient_Id, appointmentID]);
+
     const handleSubmit = async () => {
-        console.log(appointmt)
         if (
             appointmt.name &&
             appointmt.mobileNumber &&
@@ -86,33 +83,14 @@ export default function Appointments({ patient_Id, appointmentID }) {
             appointmt.dateofvisit
         ) {
             const formData = new FormData();
-            formData.append("name", appointmt.name);
-            formData.append("mobileNumber", appointmt.mobileNumber);
-            formData.append("bloodpresure", appointmt.bloodpresure);
-            formData.append("bloodsugar", appointmt.bloodsugar);
-            formData.append("date", appointmt.date);
-            formData.append("time", appointmt.time);
-            formData.append("identity", appointmt.identity);
-            formData.append("vaccine", appointmt.vaccine);
-            formData.append("Patient_Id", appointmt.Patient_Id);
-            formData.append("Doctorid", appointmt.Doctorid);
-            formData.append("doctor", appointmt.doctor);
-            formData.append("weight", appointmt.weight);
-            formData.append("month", appointmt.month);
-            formData.append("week", appointmt.week);
-            formData.append("temperature", appointmt.temperature);
-            formData.append("fundalHeight", appointmt.fundalHeight);
-            formData.append("heartrate", appointmt.heartrate);
-            formData.append("fetalMovement", appointmt.fetalMovement);
-            formData.append("fetalHeartsound", appointmt.fetalHeartsound);
-            formData.append("fetalPosition", appointmt.fetalPosition);
-            formData.append("labtestfile", appointmt.labtestfile);
-            formData.append("ultrasonicreport", appointmt.ultrasonicreport);
-            formData.append("bloodtestfile", appointmt.bloodtestfile);
-            formData.append("urinetestfile", appointmt.urinetestfile);
-            formData.append("stresstestfile", appointmt.stresstestfile);
-            formData.append("dateofvisit", appointmt.dateofvisit);
-            formData.append("isvisited", appointmt.isvisited);
+            Object.keys(appointmt).forEach((key) => {
+                formData.append(key, appointmt[key]);
+            });
+            formData.append("labTestFile", labTestFile);
+            formData.append("ultraSonicReport", ultraSonicReport);
+            formData.append("bloodTestFile", bloodTestFile);
+            formData.append("urineTestFile", urineTestFile);
+            formData.append("stressTestFile", stressTestFile);
             try {
                 const res = await fetch('https://matri-clinic-backend-tau.vercel.app/Appointments', {
                     method: 'POST',
@@ -122,7 +100,6 @@ export default function Appointments({ patient_Id, appointmentID }) {
                 const data = await res.json();
                 if (res.ok) {
                     alert('Upload successful');
-                    console.log(data);
                     fetch("https://matri-clinic-backend-tau.vercel.app/Appointments//editvisitstatus/" + appointmentID, {
                         method: "put",
                         headers: {
@@ -140,7 +117,7 @@ export default function Appointments({ patient_Id, appointmentID }) {
                     setPatient({});
                     setdate();
                     setTime();
-                    window.location.reload();
+                    setOpen(false);
                 } else {
                     alert('Upload failed');
                     console.error(data);
@@ -163,7 +140,6 @@ export default function Appointments({ patient_Id, appointmentID }) {
     }
     const handleChange = (e) => {
         setappointmt({ ...appointmt, [e.target.name]: e.target.value })
-
     }
     return (
 
@@ -193,7 +169,11 @@ export default function Appointments({ patient_Id, appointmentID }) {
                         <TestResultsSection
                             appointmt={appointmt}
                             handleChange={handleChange}
-                            handleFileChange={handleFileChange}
+                            setStressTestFile={setStressTestFile}
+                            setLabTestFile={setLabTestFile}
+                            setUltraSonicReport={setUltraSonicReport}
+                            setBloodTestFile={setBloodTestFile}
+                            setUrineTestFile={setUrineTestFile}
                         />
                     </form>
 
@@ -201,7 +181,9 @@ export default function Appointments({ patient_Id, appointmentID }) {
                         appointmt={appointmt}
                         slots={slots}
                         date={date}
+                        setTime={setTime}
                         Time={Time}
+                        setappointmt={setappointmt}
                         handledate={handledate}
                         handleSubmit={handleSubmit}
                     />

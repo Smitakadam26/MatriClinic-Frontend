@@ -10,6 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
+import { getDoctors } from "../services/api";
 export default function Home() {
     const [credentials, setCredentials] = useState({});
     const [type, settype] = useState("login");
@@ -33,8 +34,7 @@ export default function Home() {
     };
     const getdoctors = async () => {
         try {
-            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/doctors");
-            result = await result.json();
+            let result = await getDoctors();
             setdoctors(result);
         } catch (error) {
             if (!error.response) {

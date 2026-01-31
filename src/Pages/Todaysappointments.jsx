@@ -9,51 +9,17 @@ import {
     IconButton
 } from "@mui/material";
 import Appointments from "./Appointments";
-import Slide from '@mui/material/Slide';
 import wallpaper from '../assets/images/wallpaper.png'
 import CloseIcon from '@mui/icons-material/Close';
-import React
-    from "react";
-
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    width: '100%',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(1)})`,
-        transition: theme.transitions.create('width'),
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '16ch',
-            },
-        },
-    },
-}));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+import { Transition, StyledInputBase, Search } from '../components/SearchBar';
+import { editAppointment, fetchAppointment, fetchDoctorAvailability, getPatient } from "../services/api";
+import TestResultsSection from "./TestResultSection";
+import BasicInfoSection from "./BasicInfoSection";
+import AppointmentsSection from './AppointmentSection';
 export default function Todaysappointments() {
     const [slots, setslots] = useState([]);
     const [todaysAppointments, settodaysappointments] = useState([]);
@@ -68,10 +34,31 @@ export default function Todaysappointments() {
     const [currentdate, setcurrentdate] = useState();
     const [patients, setpatients] = useState([]);
     const [searchVal, setsearchVal] = useState();
+    const [bloodTestFile, setBloodTestFile] = useState();
+    const [urineTestFile, setUrineTestFile] = useState();
+    const [labTestFile, setLabTestFile] = useState();
+    const [ultraSonicReport, setUltraSonicReport] = useState();
+    const [stressTestFile, setStressTestFile] = useState();
+    const VitalSignsfields = [
+        { label: "Fundal Height", name: "fundalHeight" },
+        { label: "Fetal Heart Rate", name: "heartrate" },
+        { label: "Fetal Position", name: "fetalPosition" },
+        { label: "Fetal Heart Sound", name: "fetalHeartSound" },
+        { label: "Fetal Movement", name: "fetalMovement" },
+        { label: "Vaccine", name: "vaccine" },
+    ];
+    const AbdominalExamfields = [
+        { label: "Blood Pressure", name: "bloodpresure" },
+        { label: "Blood Sugar", name: "bloodsugar" },
+        { label: "Weight", name: "weight", type: "number" },
+        { label: "Temperature", name: "temperature" },
+    ];
     const getusers = async () => {
         try {
-            let result = await fetch("https://matri-clinic-backend-tau.vercel.app/patients");
-            result = await result.json();
+            let result = await fetch(
+                "https://matri-clinic-backend-tau.vercel.app/patients",
+            );
+            result =  result.json();
             setpatients(result);
         } catch (error) {
             if (!error.response) {
@@ -83,24 +70,28 @@ export default function Todaysappointments() {
     }
     const fetchtodaysappointments = async (date) => {
         try {
-            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/todaysappointments?date=${date}`);
+            const res = await fetch(
+                `https://matri-clinic-backend-tau.vercel.app/Appointments/todaysappointments?date=${date}`
+            );
             const data = await res.json();
             settodaysappointments(data);
+        } catch (err) {
+            console.error("Error", err);
         }
-        catch (err) {
-            console.error("Error", err)
-        }
-    }
+    };
+
     const fetchappointments = async () => {
         try {
-            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments`);
+            const res = await fetch(
+                `https://matri-clinic-backend-tau.vercel.app/Appointments`
+            );
             const data = await res.json();
             setappointments(data);
+        } catch (err) {
+            console.error("Error", err);
         }
-        catch (err) {
-            console.error("Error", err)
-        }
-    }
+    };
+
     const handleSearchappointment = () => {
         if (searchVal === "") { setappointment({}); return; }
         const data = appointments.find((item) => (
@@ -119,32 +110,28 @@ export default function Todaysappointments() {
     }
     const fetchAvailability = async (date, Doctorid) => {
         try {
-            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/availability?date=${date}&&Doctorid=${Doctorid}`);
-            const data = await res.json();
-            setslots(data.availableSlots)
+            const res = await fetchDoctorAvailability(date, Doctorid)
+            setslots(res.availableSlots)
         }
         catch (err) {
             console.error("Error", err)
         }
+
     }
-    const handleFileChange = (e) => {
-        setappointment((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.files[0]
-        }))
-    };
-    const handleChange = (id, ID) => {
+    const handlePatient = (id, ID) => {
         setPatientId(id);
         setappointmentID(ID);
         setOpen(true)
     }
+    const handleChange = (e) => {
+        setappointment({ ...appointment, [e.target.name]: e.target.value })
+    }
+
     const handledit = async (id) => {
         seteditappointmentopen(true);
         try {
-            const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/` + id);
-            const data = await res.json();
-            console.log(data);
-            setappointment(data);
+            const res = await fetchAppointment(id);
+            setappointment(res);
         }
         catch (err) {
             console.error("Error", err)
@@ -155,20 +142,13 @@ export default function Todaysappointments() {
             alert("Patient is not selected")
         }
         else {
-            console.log(e.target.name, e.target.value, Doctorid)
             fetchAvailability(e.target.value, Doctorid)
             setappointment((prev) => ({ ...prev, [e.target.name]: e.target.value, "time": " " }))
         }
 
     }
     const editappointmnt = () => {
-        fetch("https://matri-clinic-backend-tau.vercel.app/Appointments/" + appointment._id, {
-            method: "put",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(appointment),
-        })
+        editAppointment(appointment)
             .then((response) => {
                 console.log(response);
                 setappointment({});
@@ -187,37 +167,18 @@ export default function Todaysappointments() {
             appointment.mobileNumber &&
             appointment.date &&
             appointment.time &&
-            appointment.doctor
+            appointment.doctor &&
+            appointment.dateofvisit
         ) {
             const formData = new FormData();
-            formData.append("name", appointment.name);
-            formData.append("mobileNumber", appointment.mobileNumber);
-            formData.append("bloodgroup", appointment.bloodgroup);
-            formData.append("bloodpresure", appointment.bloodpresure);
-            formData.append("date", appointment.date);
-            formData.append("time", appointment.time);
-            formData.append("identity", appointment.identity);
-            formData.append("Patient_Id", appointment.Patient_Id);
-            formData.append("Doctorid", appointment.Doctorid);
-            formData.append("month", appointment.month);
-            formData.append("week", appointment.week);
-            formData.append("vaccine", appointment.vaccine);
-            formData.append("doctor", appointment.doctor);
-            formData.append("weight", appointment.weight);
-            formData.append("temperature", appointment.temperature);
-            formData.append("fundalHeight", appointment.fundalHeight);
-            formData.append("heartrate", appointment.heartrate);
-            formData.append("fetalMovement", appointment.fetalMovement);
-            formData.append("urineSugar", appointment.urineSugar);
-            formData.append("fetalPosition", appointment.fetalPosition);
-            formData.append("labtestfile", appointment.labtestfile);
-            formData.append("ultrasonicreport", appointment.ultrasonicreport);
-            formData.append("bloodtestfile", appointment.bloodtestfile);
-            formData.append("urinetestfile", appointment.urinetestfile);
-            formData.append("stresstestfile", appointment.stresstestfile);
-            formData.append("ultrasonicreportType",appointment.ultrasonicreportType);
-            formData.append("dateofvisit", currentdate);
-            formData.append("isvisited", appointment.isvisited);
+            Object.keys(appointment).forEach((key) => {
+                formData.append(key, appointment[key]);
+            });
+            formData.append("labTestFile", labTestFile);
+            formData.append("ultraSonicReport", ultraSonicReport);
+            formData.append("bloodTestFile", bloodTestFile);
+            formData.append("urineTestFile", urineTestFile);
+            formData.append("stressTestFile", stressTestFile);
             try {
                 const res = await fetch('https://matri-clinic-backend-tau.vercel.app/Appointments', {
                     method: 'POST',
@@ -227,9 +188,21 @@ export default function Todaysappointments() {
                 const data = await res.json();
                 if (res.ok) {
                     alert('Upload successful');
-                    console.log(data);
+                    fetch("https://matri-clinic-backend-tau.vercel.app/Appointments//editvisitstatus/" + appointmentID, {
+                        method: "put",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ isvisited: true }),
+                    })
+                        .then((response) => {
+                            console.log(response);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
                     setappointment({})
-                    window.location.reload();
+                    setOpen(false);
                 } else {
                     alert('Upload failed');
                     console.error(data);
@@ -242,10 +215,11 @@ export default function Todaysappointments() {
         } else {
             alert("please fill all details");
         }
+
     }
     useEffect(() => {
         const today = new Date();
-        const formatted = today.toISOString().split('T')[0]; 
+        const formatted = today.toISOString().split('T')[0];
         setcurrentdate(formatted);
         fetchtodaysappointments(formatted);
         fetchappointments();
@@ -311,7 +285,7 @@ export default function Todaysappointments() {
                                         type="checkbox"
                                         checked={record.isvisited}
                                         disabled={record.isvisited}
-                                        onClick={(e) => { handleChange(record.Patient_Id, record._id) }}
+                                        onClick={(e) => { handlePatient(record.Patient_Id, record._id) }}
                                     /></td>
                                     <td className="d-flex">
                                         <Button className="text-secondary m-1" disabled={record.isvisited} onClick={() => { handledit(record._id) }}>Edit </Button>
@@ -346,7 +320,7 @@ export default function Todaysappointments() {
                         </Toolbar>
 
                     </AppBar>
-                    <Appointments patient_Id={patient_Id} appointmentID={appointmentID} />
+                    <Appointments patient_Id={patient_Id} appointmentID={appointmentID} setOpen={setOpen} />
                 </Dialog>
                 <Dialog
                     fullWidth={true}
@@ -548,258 +522,35 @@ export default function Todaysappointments() {
                                 <Button onClick={(e) => handleSearchClick()}><SearchIcon className="m-2" /></Button>
                             </Search>
                         </div>
-                        <div className="col-md-3">
-                            <label className="form-label" placeholder="Name">Name : </label>
-                            <input type="text"
-                                name='name'
-                                className="form-control"
-                                value={appointment.name}
-                                readOnly />
-                        </div>
 
-                        <div className="col-md-3">
-                            <label className="form-label">Mobile Number : </label>
-                            <input type="Number"
-                                name='mobileNumber'
-                                className="form-control"
-                                value={appointment.mobileNumber}
-                                readOnly />
-                        </div>
-                        <div className="col-md-3">
-                            <label className="form-label" placeholder="Name">Date of Visit:</label>
-                            <input type="Date"
-                                name='dateofvisit'
-                                className="form-control"
-                                value={currentdate}
-                                onChange={(e) => { setappointment({ ...appointment, [e.target.name]: e.target.value }) }} />
-                        </div>
 
-                        <div className="col-md-3">
-                            <label className="form-label" placeholder="Name">Month:</label>
-                            <input type="number"
-                                name='month'
-                                className="form-control"
-                                placeholder="Enter month"
-                                value={appointment.month}
-                                onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                        </div>
-                        <div className="col-md-3">
-                            <label className="form-label" placeholder="Name">Week:</label>
-                            <input type="number"
-                                name='week'
-                                className="form-control"
-                                placeholder="Enter Week"
-                                value={appointment.week}
-                                onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                        </div>
-                        <div className="row g-3 mt-3"  >
-                            <h4>Vital Signs:</h4>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Blood pressure:</label>
-                                <input type="text"
-                                    name='bloodpresure'
-                                    className="form-control"
-                                    placeholder="Enter blood presure"
-                                    value={appointment.bloodpresure}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Blood sugar:</label>
-                                <input type="text"
-                                    name='bloodsugar'
-                                    className="form-control"
-                                    placeholder="Enter blood sugar"
-                                    value={appointment.bloodsugar}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Weight:</label>
-                                <input type="number"
-                                    name='weight'
-                                    className="form-control"
-                                    placeholder="Enter Weight"
-                                    value={appointment.weight}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Temperarture:</label>
-                                <input type="text"
-                                    name='temperature'
-                                    className="form-control"
-                                    placeholder="Enter Temperarture"
-                                    value={appointment.temperarture}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                        </div>
-                        <div className="row g-3 mt-3">
-                            <h4>Abdominal examination:</h4>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Fundal height:</label>
-                                <input type="text"
-                                    name='fundalHeight'
-                                    className="form-control"
-                                    placeholder="Enter Fundal Height"
-                                    value={appointment.fundalHeight}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Fetal heart rate:</label>
-                                <input type="text"
-                                    name='heartrate'
-                                    className="form-control"
-                                    placeholder="Enter Fetal heart rate"
-                                    value={appointment.heartrate}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Fetal Position:</label>
-                                <input type="text"
-                                    name='fetalPosition'
-                                    className="form-control"
-                                    placeholder="Enter Fetal Position"
-                                    value={appointment.fetalPosition}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Fetal Heart Sound:</label>
-                                <input type="text"
-                                    name='fetalHeartSound'
-                                    className="form-control"
-                                    placeholder="Enter Fetal Heart Sound"
-                                    value={appointment.fetalHeartSound}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Fetal Movement:</label>
-                                <input type="text"
-                                    name='fetalMovement'
-                                    className="form-control"
-                                    placeholder="Enter Fetal Movement"
-                                    value={appointment.fetalMovement}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Vaccine:</label>
-                                <input type="text"
-                                    name='vaccine'
-                                    className="form-control"
-                                    placeholder="Enter Vaccine Name"
-                                    value={appointment.vaccine}
-                                    onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })} />
-                            </div>
-                        </div>
+                        <BasicInfoSection
+                            patient={appointment}
+                            appointmt={appointment}
+                            currentdate={currentdate}
+                            handleChange={handleChange}
+                        />
 
-                        <div className="row g-3 mt-3">
-                            <h4>Test results:</h4>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Upload Lab test File:</label>
-                                <input type="file"
-                                    name='labtestfile'
-                                    className="form-control"
-                                    id="image"
-                                    onChange={(e) => { handleFileChange(e) }} />
-                            </div>
+                        <AppointmentsSection
+                            appointmt={appointment}
+                            handleChange={handleChange}
+                            fields={VitalSignsfields}
+                        />
+                        <AppointmentsSection
+                            appointmt={appointment}
+                            handleChange={handleChange}
+                            fields={AbdominalExamfields}
+                        />
 
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Upload Blood test File:</label>
-                                <input type="file"
-                                    name='bloodtestfile'
-                                    className="form-control"
-                                    id="image"
-                                    onChange={(e) => { handleFileChange(e) }} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Upload Urine test File:</label>
-                                <input type="file"
-                                    name='urinetestfile'
-                                    className="form-control"
-                                    id="image"
-                                    onChange={(e) => { handleFileChange(e) }} />
-                            </div>
-                            <div className="col-md-3">
-                                <label className="form-label" placeholder="Name">Upload stress test File:</label>
-                                <input type="file"
-                                    name='stresstestfile'
-                                    className="form-control"
-                                    id="image"
-                                    onChange={(e) => { handleFileChange(e) }} />
-                            </div>
-                            <div className="col-md-6">
-                                <fieldset className="col md-6" style={{ fontFamily: "Arial" }}>
-                                    <legend className="col-form-label pt-0">Upload Ultrasonic reports File{"(Sonography reports)"}:</legend>
-                                    <div className="col-sm-10" >
-                                        <div className="form-check" style={{ fontFamily: "Arial" }}>
-                                            <input className="form-check-input"
-                                                type="radio"
-                                                name="ultrasonicreportType"
-                                                value="Early pregnancy scan"
-                                                checked={appointment.ultrasonicreportType === "Early pregnancy scan"}
-                                                onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })}
-                                            />
-                                            <label className="form-check-label" >
-                                                Early pregnancy scan
-                                            </label>
-                                        </div>
-                                        <div className="form-check" style={{ fontFamily: "Arial" }}>
-                                            <input className="form-check-input"
-                                                type="radio"
-                                                name="ultrasonicreportType"
-                                                value="Ultrasound NT/NB scan"
-                                                checked={appointment.ultrasonicreportType === "Ultrasound NT/NB scan"}
-                                                onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })}
-                                            />
-                                            <label className="form-check-label" >
-                                                Ultrasound NT/NB scan
-                                            </label>
-                                        </div>
-                                        <div className="form-check" style={{ fontFamily: "Arial" }}>
-                                            <input className="form-check-input"
-                                                type="radio"
-                                                name="ultrasonicreportType"
-                                                value="Ultrasound Level 1"
-                                                checked={appointment.ultrasonicreportType === "Ultrasound Level 1"}
-                                                onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })}
-                                            />
-                                            <label className="form-check-label" >
-                                                Ultrasound Level 1
-                                            </label>
-                                        </div>
-                                        <div className="form-check" style={{ fontFamily: "Arial" }}>
-                                            <input className="form-check-input"
-                                                type="radio"
-                                                name="ultrasonicreportType"
-                                                value="Ultrasound Level 2"
-                                                checked={appointment.ultrasonicreportType === "Ultrasound Level 2"}
-                                                onChange={(e) => setappointment({ ...appointment, [e.target.name]: e.target.value })}
-                                            />
-                                            <label className="form-check-label" >
-                                                Ultrasound Level 2
-                                            </label>
-                                        </div>
-                                        <div className="form-check" style={{ fontFamily: "Arial" }}>
-                                            <input className="form-check-input"
-                                                type="radio"
-                                                name="ultrasonicreportType"
-                                                value="Growth scan"
-                                                checked={appointment.ultrasonicreportType === "Growth scan"}
-                                                onChange={(e) => ({ ...appointment, [e.target.name]: e.target.value })
-                                                }
-                                            />
-                                            <label className="form-check-label" >
-                                                Growth scan
-                                            </label>
-                                        </div>
-                                        {appointment.ultrasonicreportType && <div className="col-md-6">
-                                            <input type="file"
-                                                name='ultrasonicreport'
-                                                className="form-control"
-                                                id="image"
-                                                onChange={(e) => { handleFileChange(e) }} />
-                                        </div>}
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
+                        <TestResultsSection
+                            appointmt={appointment}
+                            handleChange={handleChange}
+                            setStressTestFile={setStressTestFile}
+                            setLabTestFile={setLabTestFile}
+                            setUltraSonicReport={setUltraSonicReport}
+                            setBloodTestFile={setBloodTestFile}
+                            setUrineTestFile={setUrineTestFile}
+                        />
                         <h4>Next appointment Date and time :</h4>
                         <div className="col-md-6">
                             <label className="form-label">Date: </label>
@@ -823,7 +574,7 @@ export default function Todaysappointments() {
                             <label className="form-label w-0 p-2" placeholder="Name">Slots : </label>
                             <span className="d-flex gap-3 p-2">
                                 {slots.map((time) => (
-                                    <Button onClick={() => { setappointment({ ...appointment,time: time }) }}>
+                                    <Button onClick={() => { setappointment({ ...appointment, time: time }) }}>
                                         {time}
                                     </Button>
                                 ))}
