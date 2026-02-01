@@ -16,7 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import { Transition, StyledInputBase, Search } from '../components/SearchBar';
-import { editAppointment, fetchAppointment, fetchDoctorAvailability, getPatient } from "../services/api";
+import { editAppointment, fetchAppointment, fetchDoctorAvailability,} from "../services/api";
 import TestResultsSection from "./TestResultSection";
 import BasicInfoSection from "./BasicInfoSection";
 import AppointmentsSection from './AppointmentSection';
@@ -58,7 +58,7 @@ export default function Todaysappointments() {
             let result = await fetch(
                 "https://matri-clinic-backend-tau.vercel.app/patients",
             );
-            result =  result.json();
+            result =await  result.json();
             setpatients(result);
         } catch (error) {
             if (!error.response) {

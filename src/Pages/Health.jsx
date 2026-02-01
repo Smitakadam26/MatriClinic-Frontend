@@ -11,8 +11,7 @@ import {
     Dialog,
     AppBar,
     Toolbar,
-    IconButton,
-    Slide
+    IconButton
 } from "@mui/material";
 import { useCallback } from "react";
 import CloseIcon from "@mui/icons-material/Close";
@@ -22,7 +21,6 @@ import AccessTimeIcon from "@mui/icons-material/AccessTimeFilled";
 import HeightIcon from "@mui/icons-material/Height";
 import BloodtypeIcon from "@mui/icons-material/Bloodtype";
 import ControlCameraIcon from "@mui/icons-material/ControlCamera";
-import { Transition } from "../components/SearchBar";
 import wallpaper from "../assets/images/wallpaper.png";
 const StatCard = ({ icon, label, value }) => (
     <Box
@@ -48,6 +46,27 @@ export default function Health() {
     const [admin, setAdmin] = useState([]);
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState("");
+    const stats = [
+        { key: "temperature", label: "Temperature", icon: "🌡" },
+        { key: "weight", label: "Weight", icon: "⚖" },
+        { key: "bloodpresure", label: "Blood Pressure" },
+        { key: "heartrate", label: "Heart Rate" },
+        {
+            key: "bloodsugar",
+            label: "Blood Sugar",
+            icon: <BloodtypeIcon fontSize="small" />
+        },
+        {
+            key: "fundalHeight",
+            label: "Fundal Height",
+            icon: <HeightIcon fontSize="small" />
+        },
+        {
+            key: "fetalPosition",
+            label: "Fetal Position",
+            icon: <ControlCameraIcon fontSize="small" />
+        }
+    ];
 
     const fetchAppointments = useCallback(async () => {
         const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`);
@@ -78,8 +97,8 @@ export default function Health() {
                 Health Records
             </Typography>
 
-            <Grid container spacing={4}>
-                <Grid item xs={12} md={7}>
+            <Grid container spacing={3}>
+                <Grid item xs={12} md={8}>
                     {appointments.map((r, i) => (
                         <Card
                             key={i}
@@ -104,54 +123,16 @@ export default function Health() {
                                 </Box>
 
                                 <Grid container spacing={2}>
-                                    {r.temperature && (
-                                        <Grid item xs={6} sm={4}>
-                                            <StatCard icon="🌡" label="Temperature" value={r.temperature} />
-                                        </Grid>
-                                    )}
-                                    {r.weight && (
-                                        <Grid item xs={6} sm={4}>
-                                            <StatCard icon="⚖" label="Weight" value={r.weight} />
-                                        </Grid>
-                                    )}
-                                    {r.bloodpresure && (
-                                        <Grid item xs={6} sm={4}>
-                                            <StatCard label="Blood Pressure" value={r.bloodpresure} />
-                                        </Grid>
-                                    )}
-                                    {r.heartrate && (
-                                        <Grid item xs={6} sm={4}>
-                                            <StatCard label="Heart Rate" value={r.heartrate} />
-                                        </Grid>
-                                    )}
-                                    {r.bloodsugar && (
-                                        <Grid item xs={6} sm={4}>
-                                            <StatCard
-                                                icon={<BloodtypeIcon fontSize="small" />}
-                                                label="Blood Sugar"
-                                                value={r.bloodsugar}
-                                            />
-                                        </Grid>
-                                    )}
-                                    {r.fundalHeight && (
-                                        <Grid item xs={6} sm={4}>
-                                            <StatCard
-                                                icon={<HeightIcon fontSize="small" />}
-                                                label="Fundal Height"
-                                                value={r.fundalHeight}
-                                            />
-                                        </Grid>
-                                    )}
-                                    {r.fetalPosition && (
-                                        <Grid item xs={6} sm={4}>
-                                            <StatCard
-                                                icon={<ControlCameraIcon fontSize="small" />}
-                                                label="Fetal Position"
-                                                value={r.fetalPosition}
-                                            />
-                                        </Grid>
+                                    {stats.map(
+                                        ({ key, label, icon }) =>
+                                            r[key] && (
+                                                <Grid item xs={6} sm={4} key={key}>
+                                                    <StatCard icon={icon} label={label} value={r[key]} />
+                                                </Grid>
+                                            )
                                     )}
                                 </Grid>
+
 
                                 {(r.date || r.time) && (
                                     <Box
@@ -175,25 +156,7 @@ export default function Health() {
                                         )}
                                     </Box>
                                 )}
-                            </CardContent>
-                        </Card>
-                    ))}
-                </Grid>
 
-                <Grid item xs={12} md={5}>
-                    <Card
-                        sx={{
-                            borderRadius: 4,
-                            height: "100%",
-                            boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-                        }}
-                    >
-                        <CardContent>
-                            <Typography variant="h6" fontWeight="bold" mb={3}>
-                                Medical Reports
-                            </Typography>
-
-                            {appointments.map((r, i) => (
                                 <Box key={i} mb={3}>
                                     <Chip
                                         label={new Date(r.dateofvisit).toDateString()}
@@ -203,10 +166,11 @@ export default function Health() {
 
                                     <Grid container spacing={1}>
                                         {[
-                                            { file: r.labtestfile, label: "Lab Report" },
-                                            { file: r.ultrasonicreport, label: "Ultrasound" },
-                                            { file: r.bloodtestfile, label: "Blood Test" },
-                                            { file: r.urinetestfile, label: "Urine Test" },
+                                            { file: r.labTestFile, label: "labTestFile" },
+                                            { file: r.ultraSonicReport, label: "ultraSonicReport" },
+                                            { file: r.bloodTestFile, label: "bloodTestFile" },
+                                            { file: r.urineTestFile, label: "urineTestFile" },
+                                            { file: r.stressTestFile, label: "stressTestFile" },
                                         ]
                                             .filter((f) => f.file)
                                             .map((f, idx) => (
@@ -220,7 +184,7 @@ export default function Health() {
                                                             borderRadius: 3,
                                                             textTransform: "none",
                                                         }}
-                                                        onClick={() => setFile(f.file)}
+                                                        onClick={() => { setFile(f.file); setOpen(true) }}
                                                     >
                                                         {f.label}
                                                     </Button>
@@ -228,32 +192,56 @@ export default function Health() {
                                             ))}
                                     </Grid>
                                 </Box>
-                            ))}
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </Grid>
             </Grid>
 
 
-            <Dialog fullScreen open={open} TransitionComponent={Transition}>
-                <AppBar>
+            <Dialog
+                fullScreen
+                open={open}
+                onClose={() => {
+                    setOpen(false);
+                    setFile(null);
+                }}
+            >
+                <AppBar sx={{ position: "relative" }}>
                     <Toolbar>
-                        <IconButton color="inherit" onClick={() => setOpen(false)}>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={() => {
+                                setOpen(false);
+                                setFile(null);
+                            }}
+                        >
                             <CloseIcon />
                         </IconButton>
-                        <Typography sx={{ ml: 2 }} variant="h6">
-                            File Preview
-                        </Typography>
                     </Toolbar>
                 </AppBar>
 
-                <iframe
-                    src={`https://matri-clinic-backend-tau.vercel.app/uploads/${file}`}
-                    title="Doctor dashboard"
-                    width="100%"
-                    height="100%"
-                    style={{ border: "none" }}
-                />
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    p={3}
+                >
+                    {file && (
+                        <Box
+                            component="img"
+                            src={file}
+                            sx={{
+                                maxWidth: "100%",
+                                maxHeight: "90vh",
+                                objectFit: "contain",
+                                borderRadius: 1,
+                                border: "1px solid #ddd",
+                            }}
+                        />
+                    )}
+                </Box>
             </Dialog>
 
             <Box mt={4} color="white">

@@ -13,7 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import SearchIcon from '@mui/icons-material/Search';
-import { Search,StyledInputBase } from '../components/SearchBar';
+import { Search, StyledInputBase } from '../components/SearchBar';
 import { getDoctors } from '../services/api';
 
 export default function Doctors() {
@@ -74,12 +74,10 @@ export default function Doctors() {
         setOpen(true);
     }
     function handleSearchClick(searchVal) {
-
         if (searchVal === "") { setdoctors(doctors); return; }
         const filterBySearch = alldoctors.filter(item =>
             item.name.toLowerCase().includes(searchVal.toLowerCase())
         );
-
         setdoctors(filterBySearch);
     }
     const handleAppointments = async (Doctorid) => {
@@ -116,7 +114,6 @@ export default function Doctors() {
                                 placeholder="Search…"
                                 inputProps={{ 'aria-label': 'search' }}
                                 onChange={e => handleSearchClick(e.target.value)}
-
                             />
                             <SearchIcon className="m-2" />
                         </Search>
@@ -197,50 +194,26 @@ export default function Doctors() {
                         <div className="card w-100">
                             <div className="card-body p-0 d-flex">
                                 <table className="table table-sm m-4">
-
                                     <tbody>
-                                        <tr>
-                                            <td className='text-secondary'>Name:</td>
-                                            <td>{Doctor.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Email:</td>
-                                            <td>{Doctor.email}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Gender :</td>
-                                            <td>{Doctor.gender === 'F' ? 'Female' : Doctor.gender === 'M' ? 'Male' : ''}</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Nationality :</td>
-                                            <td>{Doctor.nationality}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Identity :</td>
-                                            <td>{Doctor.identity}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'> Address:</td>
-                                            <td>{Doctor.address}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Age:</td>
-                                            <td>{Doctor.age}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Specialization:</td>
-                                            <td>{Doctor.specialization}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Qualification:</td>
-                                            <td>{Doctor.qualification}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='text-secondary'>Year of Experience:</td>
-                                            <td>{Doctor.yearofExper}</td>
-                                        </tr>
+                                        {[
+                                            ["Name", Doctor.name],
+                                            ["Email", Doctor.email],
+                                            ["Gender", Doctor.gender === "F" ? "Female" : Doctor.gender === "M" ? "Male" : ""],
+                                            ["Nationality", Doctor.nationality],
+                                            ["Identity", Doctor.identity],
+                                            ["Address", Doctor.address],
+                                            ["Age", Doctor.age],
+                                            ["Specialization", Doctor.specialization],
+                                            ["Qualification", Doctor.qualification],
+                                            ["Year of Experience", Doctor.yearofExper],
+                                        ].map(([label, value]) => (
+                                            <tr key={label}>
+                                                <td className="text-secondary">{label}:</td>
+                                                <td>{value}</td>
+                                            </tr>
+                                        ))}
                                     </tbody>
+
 
                                 </table>
                             </div>

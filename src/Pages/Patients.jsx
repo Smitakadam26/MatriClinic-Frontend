@@ -17,9 +17,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import CallIcon from '@mui/icons-material/Call';
 import SearchIcon from '@mui/icons-material/Search';
 import "./Home.css"
-import {Grid,Box,Divider} from '@mui/material'
+import { Grid, Box, Divider } from '@mui/material'
 import Typography from '@mui/material/Typography';
-import { Search,StyledInputBase } from "../components/SearchBar";
+import { Search, StyledInputBase } from "../components/SearchBar";
+import CloseIcon from '@mui/icons-material/Close';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 export default function Patients() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -31,6 +35,13 @@ export default function Patients() {
         { id: "action", label: 'Action', minWidth: 170 },
         { id: "appointments", label: 'Appointments', minWidth: 170 },
     ];
+    const formatDate = date =>
+        new Date(date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+
     const [Patient, setPatient] = useState({});
     const [patients, setpatients] = useState([]);
     const [allpatients, setallpatients] = useState([]);
@@ -39,6 +50,8 @@ export default function Patients() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [appointments, setappointments] = useState([]);
     const [openappointments, setopenappointments] = useState(false);
+    const [openDocument, setDocumentOpen] = useState();
+    const [document, setDocument] = useState();
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -49,12 +62,12 @@ export default function Patients() {
     };
 
     const handleAppointments = async (id) => {
-        console.log(id)
         setopenappointments(true);
         try {
             let result = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/patientapmnt?patientid=${id}`);
             result = await result.json();
             setappointments(result);
+            console.log(result);
         }
         catch (err) {
             console.error("Error", err)
@@ -114,7 +127,6 @@ export default function Patients() {
                                 placeholder="Search…"
                                 inputProps={{ 'aria-label': 'search' }}
                                 onChange={e => handleSearchClick(e.target.value)}
-
                             />
                             <SearchIcon className="m-2" />
                         </Search>
@@ -196,43 +208,23 @@ export default function Patients() {
                                 <table className="table table-sm m-4">
 
                                     <tbody>
-                                        <tr>
-                                            <td className="text-secondary">Name:</td>
-                                            <td>{Patient.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-secondary">Date of Birth:</td>
-                                            <td>{new Date(Patient.dateOfBirth).toLocaleDateString('en-US', {
-                                                year: 'numeric',
-                                                month: 'long',
-                                                day: 'numeric',
-                                            })}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-secondary">Nationality :</td>
-                                            <td>{Patient.nationality}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-secondary">Identity :</td>
-                                            <td>{Patient.identity}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-secondary"> Matrical Status:</td>
-                                            <td>{Patient.matricalStatus}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-secondary"> Address:</td>
-                                            <td>{Patient.address}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-secondary">Age:</td>
-                                            <td>{Patient.age}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-secondary">Doctor:</td>
-                                            <td>{Patient.doctor}</td>
-                                        </tr>
+                                        {[
+                                            ["Name", Patient.name],
+                                            ["Date of Birth", formatDate(Patient.dateOfBirth)],
+                                            ["Nationality", Patient.nationality],
+                                            ["Identity", Patient.identity],
+                                            ["Matrical Status", Patient.matricalStatus],
+                                            ["Address", Patient.address],
+                                            ["Age", Patient.age],
+                                            ["Doctor", Patient.doctor],
+                                        ].map(([label, value]) => (
+                                            <tr key={label}>
+                                                <td className="text-secondary">{label}:</td>
+                                                <td>{value}</td>
+                                            </tr>
+                                        ))}
                                     </tbody>
+
 
                                 </table>
                             </div>
@@ -324,42 +316,45 @@ export default function Patients() {
                                             </Typography>
 
                                             {[
-                                                { label: "Lab Report", file: record.labtestfile },
-                                                { label: "Ultrasonic Report", file: record.ultrasonicreport },
-                                                { label: "Blood Test", file: record.bloodtestfile },
-                                                { label: "Urine Test", file: record.urinetestfile },
-                                                { label: "Stress Test", file: record.stresstestfile }
-                                            ].map((item, i) => (
-                                                item.file !== "undefined" && (
+                                                { label: "Lab Report", file: record.labTestFile },
+                                                { label: "Ultrasonic Report", file: record.ultraSonicReport },
+                                                { label: "Blood Test", file: record.bloodTestFile },
+                                                { label: "Urine Test", file: record.urineTestFile },
+                                                { label: "Stress Test", file: record.stressTestFile },
+                                            ]
+                                                
+                                                .map((item, i) => (
                                                     <Box
                                                         key={i}
                                                         sx={{
                                                             mb: 2,
-                                                            display: 'flex',
-                                                            justifyContent: 'space-between',
-                                                            padding: 1.5,
-                                                            backgroundColor: '#f3f3f3',
+                                                            display: "flex",
+                                                            justifyContent: "space-between",
+                                                            alignItems: "center",
+                                                            p: 1.5,
+                                                            backgroundColor: "#f3f3f3",
                                                             borderRadius: 2,
-                                                            border: '1px solid #dcdcdc'
+                                                            border: "1px solid #dcdcdc",
                                                         }}
                                                     >
-                                                        <Typography sx={{ fontWeight: 600 }}>
+                                                        <Typography fontWeight={600}>
                                                             {item.label}
                                                         </Typography>
 
-                                                        {/*<Button
+                                                        <Button
                                                             size="small"
                                                             variant="contained"
                                                             onClick={() => {
-                                                                setdocumentopen(true);
-                                                                setSelectedRecord(item.file);
+                                                                console.log(item.file)
+                                                                setDocument(item.file);
+                                                                setDocumentOpen(true);
                                                             }}
                                                         >
                                                             View File
-                                                        </Button>*/}
+                                                        </Button>
                                                     </Box>
-                                                )
-                                            ))}
+                                                ))}
+
 
                                         </Card>
                                     </Grid>
@@ -373,6 +368,51 @@ export default function Patients() {
                     <Button className="text-white bg-secondary" onClick={() => { setopenappointments(false) }}>Close</Button>
                 </DialogActions>
             </Dialog>
+            <Dialog
+                fullScreen
+                open={openDocument}
+                onClose={() => {
+                    setDocumentOpen(false);
+                    setDocument(null);
+                }}
+            >
+                <AppBar sx={{ position: "relative" }}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={() => {
+                                setDocumentOpen(false);
+                                setDocument(null);
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    p={3}
+                >
+                    {document && (
+                        <Box
+                            component="img"
+                            src={document}
+                            sx={{
+                                maxWidth: "100%",
+                                maxHeight: "90vh",
+                                objectFit: "contain",
+                                borderRadius: 1,
+                                border: "1px solid #ddd",
+                            }}
+                        />
+                    )}
+                </Box>
+            </Dialog>
+
         </div>
     )
 }

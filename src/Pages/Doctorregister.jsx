@@ -21,7 +21,6 @@ export default function Doctorregister() {
         setState({...state, password: generatePassword()});
     };
     const handleSubmit = () => {
-        console.log(state);
         if (
             state.name &&
             state.nationality &&
@@ -45,14 +44,12 @@ export default function Doctorregister() {
                 body: JSON.stringify(state),
             })
                 .then((response) => {
-                    console.log(response);
                     setState({});
                     setstatus("Doctor Successfully Registered")
                     window.location.reload();
 
                 })
                 .catch((err) => {
-                    console.log(err);
                     setstatus("Some error")
                 });
         } else {
@@ -229,7 +226,6 @@ export default function Doctorregister() {
                             onChange={(e) => { handleChange(e) }}
                             aria-label="Speciality" />
                     </div>
-
                     <div className="d-grid gap-2 col-7 mx-auto mb-3" >
                         <Button className="text-white bg-secondary" onClick={() => { handleSubmit() }}  style={{fontFamily:"Arial"}}>Register</Button>
                     </div>

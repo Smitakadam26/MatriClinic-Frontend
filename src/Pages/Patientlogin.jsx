@@ -21,7 +21,15 @@ export default function Home() {
     const [open, setOpen] = useState(false);
     const [slots, setslots] = useState([]);
     const navigate = useNavigate();
-    const {login} = useAuth();
+    const { login } = useAuth();
+    const fields = [
+        { name: "name", label: "Name" },
+        { name: "password", label: "Password", type: "password" },
+        { name: "email", label: "Email", type: "email" },
+        { name: "mobileNumber", label: "Mobile Number", type: "number" },
+        { name: "identity", label: "Aadhar Number", type: "number" }
+    ];
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value });
@@ -140,7 +148,6 @@ export default function Home() {
         }
     };
     const fetchAvailability = async (date, Doctorid) => {
-        console.log(date, Doctorid)
         try {
             const res = await fetch(`https://matri-clinic-backend-tau.vercel.app/Appointments/availability?date=${date}&&Doctorid=${Doctorid}`);
             const data = await res.json();
@@ -152,7 +159,7 @@ export default function Home() {
     }
     const handledate = (e) => {
         if (!doctor) {
-            alert("Patient is not selected")
+            alert("Doctor is not selected")
         }
         else {
             fetchAvailability(e.target.value, doctor)
@@ -249,12 +256,12 @@ export default function Home() {
                                     </Button>
                                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                         <Button
-                                        type="button"
-                                        onClick={() => settype("signup")}
-                                        className="float-center"
-                                    >
-                                        Register
-                                    </  Button>
+                                            type="button"
+                                            onClick={() => settype("signup")}
+                                            className="float-center"
+                                        >
+                                            Register
+                                        </  Button>
 
                                         <Button
                                             type="button"
@@ -285,55 +292,19 @@ export default function Home() {
                             sx={{ mt: 1, p: 2 }}
                         >
                             <Grid container spacing={2}>
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        fullWidth
-                                        label="Name"
-                                        name="name"
-                                        value={credentials.name}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        fullWidth
-                                        type="password"
-                                        label="Password"
-                                        name="password"
-                                        value={credentials.password}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        fullWidth
-                                        type="email"
-                                        label="Email"
-                                        name="email"
-                                        value={credentials.email || ""}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        fullWidth
-                                        type="number"
-                                        label="Mobile Number"
-                                        name="mobileNumber"
-                                        value={credentials.mobileNumber}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        fullWidth
-                                        type="number"
-                                        label="Aadhar Number"
-                                        name="identity"
-                                        value={credentials.identity}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
+                                {fields.map(({ name, label, type = "text" }) => (
+                                    <Grid item xs={12} md={6} key={name}>
+                                        <TextField
+                                            fullWidth
+                                            type={type}
+                                            label={label}
+                                            name={name}
+                                            value={credentials[name] || ""}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+                                ))}
+
                                 <Grid item xs={12} md={6}>
                                     <FormControl fullWidth>
                                         <Select

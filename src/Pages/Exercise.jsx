@@ -6,8 +6,6 @@ import legraises from '../assets/images/legraises.webp'
 import Supportedvsits from '../assets/images/Supportedv-sits.webp'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import { useState } from 'react'
 import {
     Button,
