@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import { Transition, StyledInputBase, Search } from '../components/SearchBar';
 import { editAppointment, fetchAppointment, fetchDoctorAvailability,} from "../services/api";
-import TestResultsSection from "./TestResultSection";
+import TestResultsSection from './TestResultSection';
 import BasicInfoSection from "./BasicInfoSection";
 import AppointmentsSection from './AppointmentSection';
 export default function Todaysappointments() {
