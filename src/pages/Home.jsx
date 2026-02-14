@@ -24,8 +24,8 @@ export default function Home() {
         </Typography>
         <Typography variant="h3"
           component="h3"
-          sx={{ fontSize: "10vh", marginTop: "20vh", fontFamily: "Arial" }}
-          className="p-3 w-100 typing">
+          sx={{ fontSize: "10vh", marginTop: "20vh", fontFamily: "Arial",p:3 }}
+          className="w-100 typing">
           <span>Welcome to matriClinic,<br />we are at the heart of appropriate care</span>
         </Typography>
 

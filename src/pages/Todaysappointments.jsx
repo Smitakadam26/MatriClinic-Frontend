@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import {
-    Button,
-    Checkbox,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    IconButton
+    Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Box,
+    Table, TableBody, TableCell, TableContainer, TableHead, TableRow,useTheme,useMediaQuery
 } from "@mui/material";
 import Appointments from "./Appointments";
 import wallpaper from '../assets/images/wallpaper.png'
@@ -16,7 +11,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import { Transition, StyledInputBase, Search } from '../components/SearchBar';
-import { editAppointment, fetchAppointment, fetchDoctorAvailability,} from "../services/api";
+import { editAppointment, fetchAppointment, fetchDoctorAvailability, } from "../services/api";
 import TestResultsSection from './TestResultSection';
 import BasicInfoSection from "./BasicInfoSection";
 import AppointmentsSection from './AppointmentSection';
@@ -53,12 +48,15 @@ export default function Todaysappointments() {
         { label: "Weight", name: "weight", type: "number" },
         { label: "Temperature", name: "temperature" },
     ];
+    const theme = useTheme();
+const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     const getusers = async () => {
         try {
             let result = await fetch(
                 "https://matri-clinic-backend-tau.vercel.app/patients",
             );
-            result =await  result.json();
+            result = await result.json();
             setpatients(result);
         } catch (error) {
             if (!error.response) {
@@ -254,47 +252,65 @@ export default function Todaysappointments() {
                     backgroundPosition: "center",
                     fontFamily: "Arial"
                 }} >
-                <div className='p-4 mt-2 d-flex justify-content-between container '>
-                    <h2> Todays Appointment</h2>
-                    <div>
+                <Box sx={{ display: { xs: 'inline', sm: 'flex' }, p: 4, justifyContent: "space-between" }}>
+                    <Typography varient="h1" component="h1" sx={{ fontSize: "4vh", mx: 4 }}> Todays Appointment</Typography>
+                    <Box sx={{ mx: 4 }}>
                         <Button onClick={() => { setbookappointment(true) }} className="text-dark bg-light" >First Appointment</Button>
                         <Button onClick={() => { seteditappointment(true) }} className="text-dark bg-light m-1">Edit Appointment</Button>
 
-                    </div>
-                </div>
-                <div className="mt-2 container">
-                    <table className="sticky table table-bordered text-center w-100 mt-5">
-                        <thead>
-                            <tr style={{ fontFamily: "Arial" }}>
-                                <th>Name</th>
-                                <th>Mobile Number</th>
-                                <th>Doctor</th>
-                                <th>Time</th>
-                                <th>isVisited</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {todaysAppointments.map((record) => (
-                                <tr className="bordered" key={record._id}>
-                                    <td>{record.name}</td>
-                                    <td>{record.mobileNumber}</td>
-                                    <td>{record.doctor}</td>
-                                    <td>{record.time}</td>
-                                    <td><Checkbox
-                                        type="checkbox"
-                                        checked={record.isvisited}
-                                        disabled={record.isvisited}
-                                        onClick={(e) => { handlePatient(record.Patient_Id, record._id) }}
-                                    /></td>
-                                    <td className="d-flex">
-                                        <Button className="text-secondary m-1" disabled={record.isvisited} onClick={() => { handledit(record._id) }}>Edit </Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                    </Box>
+                </Box>
+                
+
+                <Box sx={{ m: { sm: 5 } }}>
+                    <TableContainer>
+                        <Table stickyHeader sx={{ width: { xs: "50%", sm: "100%" } }}>
+                            <TableHead>
+                                <TableRow sx={{ fontSize: "3vh" }}>
+                                    <TableCell align="center"><strong>Name</strong></TableCell>
+                                    <TableCell align="center"><strong>Mobile Number</strong></TableCell>
+                                    {!isMobile &&<TableCell align="center"><strong>Doctor</strong></TableCell>}
+                                    {!isMobile &&<TableCell align="center"><strong>Time</strong></TableCell>}
+                                    <TableCell align="center"><strong>Is Visited</strong></TableCell>
+                                    <TableCell align="center"><strong>Action</strong></TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody>
+                                {todaysAppointments.map((record) => (
+                                    <TableRow key={record._id} hover>
+                                        <TableCell align="center">{record.name}</TableCell>
+                                        <TableCell align="center">{record.mobileNumber}</TableCell>
+                                        <TableCell align="center">{record.doctor}</TableCell>
+                                        <TableCell align="center">{record.time}</TableCell>
+
+                                        <TableCell align="center">
+                                            <Checkbox
+                                                checked={record.isvisited}
+                                                disabled={record.isvisited}
+                                                onClick={() =>
+                                                    handlePatient(record.Patient_Id, record._id)
+                                                }
+                                            />
+                                        </TableCell>
+
+                                        <TableCell align="center">
+                                            <Button
+                                                variant="outlined"
+                                                color="secondary"
+                                                size="small"
+                                                disabled={record.isvisited}
+                                                onClick={() => handledit(record._id)}
+                                            >
+                                                Edit
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
 
                 <Dialog
                     fullScreen

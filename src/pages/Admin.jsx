@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Button,Box } from "@mui/material"
 import { Link, Outlet, useParams } from "react-router-dom"
 import logo from '../assets/images/logo.png';
 export default function Admin() {
@@ -7,10 +7,12 @@ export default function Admin() {
         <div>
             <h1 className="heading mx-5">
                 <div className="d-flex flex-wrap justify-content-between">
-                    <div>
-                        <img src={logo} alt="logo" style={{ width: "40vh" }} />
-                    </div>
-
+                    <Box component="img"
+                        src={logo}
+                        alt="Logo"
+                        sx={{ height: {xs:80,sm:100}, marginRight: 2 }}
+                    />
+                    <Box sx={{ flexGrow: 1 }} />
                     <div className="navbar d-flex">
                         <div className="d-flex flex-wrap">
                             <Button><Link to={`/Admin/${id}`} className="text-dark text-decoration-none">Appointments</Link></Button>

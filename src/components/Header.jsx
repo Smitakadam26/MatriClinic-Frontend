@@ -7,15 +7,16 @@ export default function Header() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ backgroundColor: "white", height: 115 }}>
                 <Toolbar sx={{
-                    alignItems: "center", height: "100%"
+                    alignItems: "center", height: "100%",display:{xs:'inline',sm:'flex'}
                 }}>
                     <Box component="img"
                         src={logo}
                         alt="Logo"
-                        sx={{ height: 100, marginRight: 2 }}
+                        sx={{ height: {xs:80,sm:100}, marginRight: 2 }}
                     />
                     <Box sx={{ flexGrow: 1 }} />
-                    <Button>
+                    <Box display='flex'>
+                        <Button>
                         <Link to="/Patientlogin" className="text-secondary text-decoration-none m-2" style={{ fontFamily: "Arial" }}>
                             Patient
                         </Link>
@@ -27,6 +28,7 @@ export default function Header() {
                         </Link>
                         <Outlet />
                     </Button>
+                    </Box>
                 </Toolbar>
             </AppBar>
         </Box>
